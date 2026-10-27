@@ -8,6 +8,23 @@ ROS Guangzhou 的官方网站：静态站点，零后端，内容全部 Git 化�
 - 技术栈：Astro（纯静态）、原生 CSS（无 UI 框架依赖）、数据用 JSON
 - 部署目标：Cloudflare Pages（Git 集成，PR 预览 + 一键回滚）
 
+## 访问地址
+
+| 用途 | 地址 | 说明 |
+|---|---|---|
+| 预览站（已上线） | https://loonglee2025.github.io/rosgz/ | GitHub Pages 项目页，子路径 `/rosgz`；`noindex`，仅作预览 |
+| 正式站（待域名注册） | https://rosgz.org | Cloudflare Pages，根路径；接入步骤见 `docs/DEPLOY.md` |
+
+## 两种构建模式
+
+```bash
+npm run build                       # 正式站：base=/，canonical=rosgz.org
+DEPLOY_TARGET=gh-pages npm run build  # 预览站：base=/rosgz，canonical 仍指向 rosgz.org 且带 noindex
+```
+
+内部链接一律通过 `src/lib/url.ts` 的 `url('/path')` 生成，**不要硬编码 `href="/path"`**——
+否则子路径部署会 404。新增页面时同样适用。
+
 ## 当前状态（M0 骨架）
 
 已完成：

@@ -8,9 +8,29 @@
 
 ## 0. 前置条件
 
-- [ ] GitHub 仓库已创建（拍板项 2 未定：`rosgz` 组织 或 `loonglee2025` 个人账号）
+- [x] GitHub 仓库已创建：`loonglee2025/rosgz`（2026-10-28；日后可 Transfer 到组织 `rosgz`）
 - [ ] 一个 Cloudflare 账号（免费计划即可）
 - [ ] 一个域名注册商账号（见下）
+
+## 0. GitHub Pages 预览站（已启用，无需等待域名）
+
+用于在域名注册前先让社群成员在手机上看到成品。
+
+- 地址：`https://loonglee2025.github.io/rosgz/`
+- 工作流：`.github/workflows/deploy-pages.yml`（push 到 `main` 自动构建部署，`workflow_dispatch` 可手动触发）
+- Pages 源已由 API 设为 **GitHub Actions**（`build_type: workflow`），无需在网页端再选分支
+- 构建参数：`DEPLOY_TARGET=gh-pages` → `base=/rosgz`，内部链接自动加前缀（`src/lib/url.ts`）
+- SEO 处理：预览站带 `<meta name="robots" content="noindex, nofollow">`，canonical 仍指向 `https://rosgz.org`，
+  避免被搜索引擎与正式站判为重复内容
+- 已知限制：GitHub Pages 在中国大陆访问不稳定（时延/丢包随网络变化），**仅作预览**；
+  正式发布仍按下方 Cloudflare Pages + 自定义域执行，届时可把本工作流降级为可选或删除
+
+验证方式（我可随时执行）：
+
+```bash
+curl -s -o /dev/null -w "%{http_code}\n" https://loonglee2025.github.io/rosgz/
+curl -s -o /dev/null -w "%{http_code}\n" https://loonglee2025.github.io/rosgz/about/
+```
 
 ## 1. 注册域名（你操作）
 

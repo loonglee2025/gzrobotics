@@ -3,14 +3,22 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import site from '../data/site.json';
 import '../styles/global.css';
-import { url } from '../lib/url';
+import { url, basePath } from '../lib/url';
 
 const { title, description } = Astro.props;
 const desc = description || site.description;
 const pageTitle = title
   ? `${title} · ${site.nameZh}（${site.name}）`
   : `${site.nameZh}（${site.name}）— ${site.tagline}`;
-const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://rosgz.org');
+
+// 预览部署（GitHub Pages 子路径）时：canonical 仍指向正式域，并加 noindex，
+// 避免预览站被搜索引擎当成重复内容收录。
+const isPreview = basePath !== '';
+const pathNoBase =
+  isPreview && Astro.url.pathname.startsWith(basePath)
+    ? Astro.url.pathname.slice(basePath.length) || '/'
+    : Astro.url.pathname;
+const canonical = new URL(pathNoBase, site.domain);
 ---
 
 <!doctype html>
@@ -21,6 +29,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://rosgz.org')
     <title>{pageTitle}</title>
     <meta name="description" content={desc} />
     <link rel="canonical" href={canonical.href} />
+    {isPreview && <meta name="robots" content="noindex, nofollow" />}
     <link rel="icon" type="image/svg+xml" href={url('/favicon.svg')} />
     <meta name="theme-color" content="#0a1220" />
     <meta property="og:type" content="website" />
