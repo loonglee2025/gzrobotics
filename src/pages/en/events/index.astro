@@ -1,0 +1,108 @@
+---
+import Base from '../../../layouts/Base.astro';
+import eventsData from '../../../data/events.json';
+import { url } from '../../../lib/url';
+
+const events = [...(eventsData.events ?? [])].sort((a, b) => (a.date < b.date ? 1 : -1));
+const upcoming = events.filter((e) => e.status === 'upcoming').reverse();
+const past = events.filter((e) => e.status !== 'upcoming');
+
+const modeLabel = { offline: 'In person', online: 'Online', hybrid: 'Hybrid' };
+
+function range(ev) {
+  return ev.endDate && ev.endDate !== ev.date ? `${ev.date} → ${ev.endDate}` : ev.date;
+}
+
+// 活动数据字段本身为中文时，英文页优先取 titleEn / summaryEn（未提供则回退中文原文）
+const title = (ev) => ev.titleEn || ev.title;
+const summary = (ev) => ev.summaryEn || ev.summary;
+---
+
+<Base
+  title="Events"
+  description="ROSGZ tech talks, hands-on workshops and project retrospectives in Guangzhou and the Greater Bay Area."
+>
+  <div class="page-head">
+    <h1>Events</h1>
+    <p>
+      Tech talks, workshops and project retrospectives. Sign-ups go through third-party forms; this site collects
+      no personal data.
+    </p>
+  </div>
+
+  <h2>Upcoming</h2>
+  {
+    upcoming.length > 0 ? (
+      <div class="event-list">
+        {upcoming.map((ev) => (
+          <article class="event">
+            <div class="date">{range(ev)}</div>
+            <div>
+              <div style="font-weight:600">{title(ev)}</div>
+              <p class="muted" style="margin:.3rem 0 0;font-size:.93rem">{summary(ev)}</p>
+              <p class="muted" style="margin:.35rem 0 0;font-size:.86rem">
+                {ev.city}
+                {ev.venue ? ` · ${ev.venue}` : ''}
+                {ev.mode ? ` · ${modeLabel[ev.mode] ?? ev.mode}` : ''}
+              </p>
+              {ev.signupUrl && (
+                <p style="margin:.7rem 0 0">
+                  <a class="btn btn-primary" href={ev.signupUrl}>Sign up</a>
+                </p>
+              )}
+              <div class="tags">
+                {(ev.tags ?? []).map((t) => <span class="tag">{t}</span>)}
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    ) : (
+      <div class="notice">
+        <strong>Schedule in progress.</strong> The next event's topic, date and venue will be announced here and
+        through our <a href={url('/en/join')}>community channels</a>.
+      </div>
+    )
+  }
+
+  <h2>Past events</h2>
+  {
+    past.length > 0 ? (
+      <div class="event-list">
+        {past.map((ev) => (
+          <article class="event">
+            <div class="date">{range(ev)}</div>
+            <div>
+              <div style="font-weight:600">{title(ev)}</div>
+              <p class="muted" style="margin:.3rem 0 0;font-size:.93rem">{summary(ev)}</p>
+              <p class="muted" style="margin:.35rem 0 0;font-size:.86rem">
+                {ev.city}
+                {ev.venue ? ` · ${ev.venue}` : ''}
+              </p>
+              {ev.recapUrl && (
+                <p style="margin:.6rem 0 0;font-size:.9rem">
+                  <a href={ev.recapUrl}>Read the recap</a>
+                </p>
+              )}
+              <div class="tags">
+                {(ev.tags ?? []).map((t) => <span class="tag">{t}</span>)}
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    ) : (
+      <div class="notice">
+        Past events are being catalogued. To be notified first, <a href={url('/en/join')}>join the community</a>.
+      </div>
+    )
+  }
+
+  <h2>Want to speak?</h2>
+  <p>
+    Any topic related to ROS 2 / robotics software is welcome: debugging retrospectives, tooling, simulation,
+    real-robot deployment, team workflows. You do not need to be from a big company or a "expert" — explaining one
+    problem thoroughly is enough. Reach us through the channels on the
+    <a href={url('/en/join')}>Join</a> page.
+  </p>
+</Base>

@@ -6,6 +6,7 @@ ROS Guangzhou 的官方网站：静态站点，零后端，内容全部 Git 化�
 - 站点定位（已定，依据社区介绍原文）：**面向机器人开发者的开放技术社区**——以 ROS / ROS 2 为技术基础，连接广州及周边从事机器人、自动驾驶、AI 感知、具身智能的开发者、研究者与创业者；不做付费培训、招聘中介与广告投放
 - 内容来源：公众号 WayToRobots《ROS Guangzhou 社区介绍》（检索日期 2026-10-28，见 `src/data/site.json` 的 `source` 字段）
 - 技术栈：Astro（纯静态）、原生 CSS（无 UI 框架依赖）、数据用 JSON
+- 语言：**中英双语**——中文为默认（`/about`），英文在 `/en` 下（`/en/about`）；英文为中文原文的译本，两者冲突时以中文为准
 - 部署目标：Cloudflare Pages（Git 集成，PR 预览 + 一键回滚）
 
 ## 访问地址
@@ -25,6 +26,19 @@ DEPLOY_TARGET=gh-pages npm run build  # 预览站：base=/rosgz，canonical 仍�
 内部链接一律通过 `src/lib/url.ts` 的 `url('/path')` 生成，**不要硬编码 `href="/path"`**——
 否则子路径部署会 404。新增页面时同样适用。
 
+## 双语维护规则
+
+| 事项 | 规则 |
+|---|---|
+| 页面 | 中文 `src/pages/*.astro`；英文 `src/pages/en/*.astro`（同结构，复用 `Base.astro`） |
+| 数据 | 中文 `src/data/site.json`；英文 `src/data/site.en.json`（同 schema，字段一一对应） |
+| 链接 | 中文页 `url('/about')`；英文页 `url('/en/about')`。语言前缀由 `src/lib/i18n.ts` 生成 |
+| 语言切换 | `Header.astro` 按当前路径自动生成另一语言链接（`EN` / `中文` 胶囊按钮） |
+| SEO | `Base.astro` 输出 `hreflang`（zh-CN / en / x-default）与分语言 canonical；`<html lang>` 随语言切换 |
+| 新增页面 | 中英各一份；暂时缺英文版就在 README 待办里记一行，不要英文页留中文内容 |
+| 口径 | 英文是**译本**：中文改动后必须同步英文；两者冲突时以中文原文为准（页脚/About 有说明） |
+| 活动数据 | `events.json` 的 `titleEn` / `summaryEn` 为可选字段，英文活动页优先取，缺省回退中文 |
+
 ## 当前状态（M0 骨架）
 
 已完成：
@@ -40,7 +54,7 @@ DEPLOY_TARGET=gh-pages npm run build  # 预览站：base=/rosgz，canonical 仍�
 
 - [x] 拍板项 2：仓库归属 → 已定 `loonglee2025/rosgz`（2026-10-28 创建并首推）；
       若日后需迁到 GitHub Organization `rosgz`，用 GitHub 的 Transfer repository 保 issue/star
-- [ ] 拍板项 4：是否首版中英双语（当前为中文单语，i18n 结构未引入）
+- [x] 拍板项 4：中英双语已实现（中文 `/`，英文 `/en`；`src/data/site.en.json`；hreflang 与语言切换已接入）
 - [x] 「ROS 广州」既有描述出处 → 已定位：公众号 WayToRobots《ROS Guangzhou 社区介绍》
       （检索 2026-10-28，原文归档于 `docs/source/`），站点文案已按其口径重构
 - [ ] 真实活动数据（`src/data/events.json` 现为空数组，页面显示占位说明，**不含任何虚构活动**）

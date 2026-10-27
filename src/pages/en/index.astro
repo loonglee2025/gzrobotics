@@ -1,0 +1,111 @@
+---
+import Base from '../../layouts/Base.astro';
+import site from '../../data/site.en.json';
+import eventsData from '../../data/events.json';
+import { url } from '../../lib/url';
+
+const events = eventsData.events ?? [];
+const upcoming = events.filter((e) => e.status === 'upcoming');
+const latestEvent = upcoming[0];
+const areas = site.technologyAreas;
+const values = site.manifesto.values;
+const formats = site.activityFormats;
+---
+
+<Base>
+  <section class="hero">
+    <p class="muted" style="margin:0;font-family:var(--mono);font-size:.82rem;letter-spacing:.1em">
+      ROS GUANGZHOU · ROBOTICS DEVELOPER COMMUNITY
+    </p>
+    <h1>Connecting <span class="accent">robotics developers</span> in Guangzhou</h1>
+    <p class="lead">
+      An open technical community for robotics developers. Built on ROS / ROS 2, we connect developers,
+      researchers and founders working on robotics, autonomous driving, AI perception and embodied AI in and
+      around Guangzhou — through online discussion and offline events that promote knowledge sharing,
+      open-source collaboration and hands-on engineering practice.
+    </p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href={url('/en/join')}>Join the community</a>
+      <a class="btn btn-ghost" href={url('/en/manifesto')}>Read the manifesto</a>
+      <a class="btn btn-ghost" href={url('/en/weekly')}>Weekly digests</a>
+    </div>
+  </section>
+
+  <h2>What we work on</h2>
+  <div class="grid">
+    {
+      areas.map((area) => (
+        <div class="card">
+          <h3>{area.title}</h3>
+          <div class="tags" style="margin-top:.5rem">
+            {area.items.map((it) => (
+              <span class="tag">{it}</span>
+            ))}
+          </div>
+        </div>
+      ))
+    }
+  </div>
+
+  {
+    latestEvent && (
+      <section>
+        <h2>Next event</h2>
+        <div class="event">
+          <div class="date">{latestEvent.date}</div>
+          <div>
+            <div style="font-weight:600">{latestEvent.title}</div>
+            <p class="muted" style="margin:.3rem 0 0;font-size:.93rem">{latestEvent.summary}</p>
+            {latestEvent.signupUrl && (
+              <p style="margin:.6rem 0 0">
+                <a class="btn btn-primary" href={latestEvent.signupUrl}>Sign up</a>
+              </p>
+            )}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <h2>What we believe</h2>
+  <p class="muted" style="max-width:62ch">{site.manifesto.belief}</p>
+  <div class="grid">
+    {
+      values.map((v) => (
+        <div class="card">
+          <h3>{v.title}</h3>
+          <p>{v.desc}</p>
+        </div>
+      ))
+    }
+  </div>
+  <p style="margin-top:1rem">
+    <a href={url('/en/manifesto')}>Full manifesto →</a>
+  </p>
+
+  <h2>How we meet</h2>
+  <ul class="plain-list">
+    {
+      formats.map((f) => (
+        <li>
+          <div class="title">{f.title}</div>
+          <div class="desc">{f.desc}</div>
+        </li>
+      ))
+    }
+  </ul>
+
+  <h2>Who this is for</h2>
+  <div class="tags" style="gap:.5rem">
+    {site.memberProfiles.map((p) => <span class="tag">{p}</span>)}
+  </div>
+  <p class="muted" style="margin-top:.9rem">
+    Whether you are just getting started or have years of experience, you are welcome here.
+  </p>
+
+  <div class="notice">
+    <strong>Who we are:</strong> ROS Guangzhou is an open technical community organized by developers.
+    We are not affiliated with Open Robotics / OSRF and do not act in any official capacity.
+    {site.principle}
+  </div>
+</Base>

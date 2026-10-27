@@ -1,46 +1,56 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import site from '../data/site.json';
+import siteZh from '../data/site.json';
+import siteEn from '../data/site.en.json';
 import '../styles/global.css';
 import { url, basePath } from '../lib/url';
+import { stripBase, langOf, withoutLocale, localePath } from '../lib/i18n';
 
 const { title, description } = Astro.props;
-const desc = description || site.description;
-const pageTitle = title
-  ? `${title} · ${site.nameZh}（${site.name}）`
-  : `${site.nameZh}（${site.name}）— ${site.tagline}`;
 
-// 预览部署（GitHub Pages 子路径）时：canonical 仍指向正式域，并加 noindex，
-// 避免预览站被搜索引擎当成重复内容收录。
+const pathNoBase = stripBase(Astro.url.pathname);
+const lang = langOf(pathNoBase);
+const plain = withoutLocale(pathNoBase);
+const site = lang === 'zh' ? siteZh : siteEn;
+
+const desc = description || site.description;
+const brand =
+  lang === 'zh' ? `${site.nameZh}（${site.name}）` : `${site.name} · ${site.nameEn}`;
+const pageTitle = title ? `${title} · ${brand}` : `${brand} — ${site.tagline}`;
+
+const withSlash = (p) => (p.endsWith('/') ? p : `${p}/`);
+const abs = (l) => new URL(withSlash(localePath(l, plain)), site.domain).href;
+
+// 预览部署（GitHub Pages 子路径）时加 noindex；canonical 与 hreflang 始终指向正式域。
 const isPreview = basePath !== '';
-const pathNoBase =
-  isPreview && Astro.url.pathname.startsWith(basePath)
-    ? Astro.url.pathname.slice(basePath.length) || '/'
-    : Astro.url.pathname;
-const canonical = new URL(pathNoBase, site.domain);
+const canonical = abs(lang);
 ---
 
 <!doctype html>
-<html lang="zh-CN">
+<html lang={lang === 'zh' ? 'zh-CN' : 'en'}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{pageTitle}</title>
     <meta name="description" content={desc} />
-    <link rel="canonical" href={canonical.href} />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="zh-CN" href={abs('zh')} />
+    <link rel="alternate" hreflang="en" href={abs('en')} />
+    <link rel="alternate" hreflang="x-default" href={abs('zh')} />
     {isPreview && <meta name="robots" content="noindex, nofollow" />}
     <link rel="icon" type="image/svg+xml" href={url('/favicon.svg')} />
     <meta name="theme-color" content="#0a1220" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="ROSGZ" />
+    <meta property="og:locale" content={lang === 'zh' ? 'zh_CN' : 'en_US'} />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={desc} />
-    <meta property="og:url" content={canonical.href} />
+    <meta property="og:url" content={canonical} />
     <meta name="twitter:card" content="summary" />
   </head>
   <body>
-    <a class="skip-link" href="#main">跳到主内容</a>
+    <a class="skip-link" href="#main">{lang === 'zh' ? '跳到主内容' : 'Skip to content'}</a>
     <Header />
     <main id="main">
       <div class="wrap">

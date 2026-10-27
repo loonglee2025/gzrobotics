@@ -1,0 +1,122 @@
+---
+import Base from '../../layouts/Base.astro';
+import site from '../../data/site.en.json';
+import { url } from '../../lib/url';
+
+const areas = site.technologyAreas;
+const formats = site.activityFormats;
+---
+
+<Base
+  title="About"
+  description="ROS Guangzhou is an open technical community for robotics developers: vision, technical focus, who joins and how we meet."
+>
+  <div class="page-head">
+    <h1>About ROS Guangzhou</h1>
+    <p>An open technical community for robotics developers.</p>
+  </div>
+
+  <p>
+    ROS Guangzhou is an open technical community connecting developers, researchers and founders working on
+    <strong>robotics, autonomous driving, AI perception and embodied AI</strong> in and around Guangzhou.
+  </p>
+  <p>
+    Built on <strong>ROS / ROS 2</strong> (Robot Operating System), the community runs online discussion and
+    offline events to promote knowledge sharing, open-source collaboration and engineering practice — so that
+    more robotics developers can build real connections within the same city.
+  </p>
+
+  <h2>1. Vision</h2>
+  <div class="card">
+    <p style="margin:0;font-size:1.06rem">
+      <strong>Connect robotics developers in Guangzhou, and advance technical exchange and innovation.</strong>
+    </p>
+  </div>
+  <p>
+    ROS has become essential infrastructure for robotics worldwide, yet local developers in many cities remain
+    weakly connected. ROS Guangzhou aims to build a <strong>long-term, open, technology-driven</strong> community
+    where robotics developers can:
+  </p>
+  <ul class="plain-list">
+    <li><div class="title">Share experience</div></li>
+    <li><div class="title">Exchange technical ideas</div></li>
+    <li><div class="title">Showcase projects</div></li>
+    <li><div class="title">Find collaboration opportunities</div></li>
+  </ul>
+  <p style="margin-top:.9rem">Making Guangzhou one of the most active cities for robotics exchange.</p>
+
+  <h2>2. Positioning</h2>
+  <p>{site.positioning}</p>
+  <p class="muted">Topics we cover:</p>
+  <div class="grid">
+    {
+      areas.map((area) => (
+        <div class="card">
+          <h3>{area.title}</h3>
+          <div class="tags" style="margin-top:.5rem">
+            {area.items.map((it) => (
+              <span class="tag">{it}</span>
+            ))}
+          </div>
+        </div>
+      ))
+    }
+  </div>
+
+  <h2>3. Who joins</h2>
+  <p>The community is open to anyone interested in robotics technology, including:</p>
+  <ul class="plain-list">
+    {site.memberProfiles.map((p) => (<li><div class="title">{p}</div></li>))}
+  </ul>
+  <p style="margin-top:.9rem">
+    Whether you are just getting started or have years of experience, you are welcome.
+  </p>
+
+  <h2>4. Activities</h2>
+  <p>To support technical exchange, ROS Guangzhou plans several formats:</p>
+  <ul class="plain-list">
+    {
+      formats.map((f) => (
+        <li>
+          <div class="title">{f.title}</div>
+          <div class="desc">{f.desc}</div>
+        </li>
+      ))
+    }
+  </ul>
+
+  <h3>Open-source collaboration</h3>
+  <p class="muted">We encourage members to contribute to:</p>
+  <div class="tags" style="gap:.5rem">
+    {site.openSourceFocus.map((f) => <span class="tag">{f}</span>)}
+  </div>
+
+  <h2>5. Manifesto</h2>
+  <p>
+    "{site.manifesto.belief}" — this is the community's basic premise and the starting point for how we organize.
+    We encourage <strong>openness, practice, open-source spirit and long-term commitment</strong>.
+  </p>
+  <p><a href={url('/en/manifesto')}>Read the full manifesto →</a></p>
+
+  <h2>Identity and trademark</h2>
+  <div class="notice">
+    ROS Guangzhou is an independent local community organization, <strong>not affiliated with
+    Open Robotics / OSRF</strong>, and does not represent their official positions. "ROS" is a registered
+    trademark of Open Robotics. This community uses the name in the sense of a local technical community only,
+    does not use official logos or their variants, and does not claim any "official" or "regional office" status.
+  </div>
+
+  <h2>Content source</h2>
+  <p class="muted" style="font-size:.92rem">
+    This page is translated and adapted from the community introduction
+    <a href={site.source.url} lang="zh-CN">{site.source.title}</a>
+    ({site.source.channel}, retrieved {site.source.retrieved}).
+    Where the Chinese original and this English edition differ, the Chinese original prevails.
+  </p>
+
+  <h2>Contact</h2>
+  <p class="muted">
+    See <a href={url('/en/join')}>Join</a> for community channels. Proposals on collaboration, venue or
+    speaking are welcome through the channels listed there.
+  </p>
+</Base>

@@ -1,0 +1,60 @@
+---
+import Base from '../../layouts/Base.astro';
+import site from '../../data/site.en.json';
+
+const digests = site.weeklyDigests;
+---
+
+<Base
+  title="Weekly Digests"
+  description="ROS 2 weekly digest and robotics research weekly — tracking upstream changes, release cadence and new papers."
+>
+  <div class="page-head">
+    <h1>Weekly Digests</h1>
+    <p>
+      Two continuously updated public digests. Everything is archived as Markdown in GitHub repositories,
+      free to cite and to correct.
+    </p>
+  </div>
+
+  <div class="grid">
+    {
+      digests.map((d) => (
+        <div class="card">
+          <h3>{d.label}</h3>
+          <p>{d.cadence}</p>
+          <span class="meta">
+            <a href={d.repo}>Read in the repository →</a>
+          </span>
+        </div>
+      ))
+    }
+  </div>
+
+  <div class="notice">
+    <strong>Sync status:</strong> currently these link straight to the public repositories. In-site aggregation
+    (fetching <code>{digests[0].reportsPath}/*.md</code> at build time and rendering the latest issue and full
+    archive here) is planned for milestone M2.
+  </div>
+
+  <h2>Editorial rules</h2>
+  <ul class="plain-list">
+    <li>
+      <div class="title">Only verifiable sources</div>
+      <div class="desc">
+        Issues carry footnotes pointing to official docs, upstream PRs/discussions and original papers.
+        No "someone said" claims.
+      </div>
+    </li>
+    <li>
+      <div class="title">Separate facts from judgement</div>
+      <div class="desc">
+        Upstream changes and release dates are facts; trend calls are explicitly marked as opinion.
+      </div>
+    </li>
+    <li>
+      <div class="title">Corrections via PR</div>
+      <div class="desc">The repositories accept any correction or addition — just attach the source.</div>
+    </li>
+  </ul>
+</Base>

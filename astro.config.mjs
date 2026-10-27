@@ -12,6 +12,14 @@ const ghPages = process.env.DEPLOY_TARGET === 'gh-pages';
 export default defineConfig({
   site: ghPages ? 'https://loonglee2025.github.io' : 'https://rosgz.org',
   base: ghPages ? '/rosgz' : '/',
+  // 中英双语：中文为默认语言且不带前缀（/about），英文在 /en 下（/en/about）
+  i18n: {
+    defaultLocale: 'zh',
+    locales: ['zh', 'en'],
+    routing: {
+      prefixDefaultLocale: false,
+    },
+  },
   trailingSlash: 'ignore',
   build: {
     format: 'directory',

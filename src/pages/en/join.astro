@@ -1,0 +1,113 @@
+---
+import Base from '../../layouts/Base.astro';
+import site from '../../data/site.en.json';
+import { url } from '../../lib/url';
+
+const links = site.links;
+const wechatOfficial = links.wechatOfficial;
+const wechatGroup = links.wechatGroup;
+const email = links.email;
+const github = links.github;
+const criteria = site.joinCriteria;
+const formats = site.activityFormats;
+---
+
+<Base
+  title="Join"
+  description="Join ROS Guangzhou: an open technical community for ROS / ROS 2 developers, robotics algorithm engineers, autonomous driving engineers, AI perception researchers, founders and students."
+>
+  <div class="page-head">
+    <h1>Join the community</h1>
+    <p>
+      If you build robots, or simply find robotics fascinating — you are welcome. Let's build a city community
+      that truly belongs to robotics developers.
+    </p>
+  </div>
+
+  <h2>This is for you if…</h2>
+  <ul class="plain-list">
+    {criteria.map((c) => (<li><div class="title">{c}</div></li>))}
+  </ul>
+
+  <h2>Channels</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>WeChat Official Account: {wechatOfficial.label}</h3>
+      <p>{wechatOfficial.note}</p>
+      {
+        wechatOfficial.qrImage ? (
+          <p style="margin-top:.9rem">
+            <span class="qr">
+              <img src={url(wechatOfficial.qrImage)} alt={`${wechatOfficial.label} QR code`} loading="lazy" />
+            </span>
+          </p>
+        ) : (
+          <p class="muted" style="margin-top:.7rem">QR code coming soon.</p>
+        )
+      }
+    </div>
+
+    <div class="card">
+      <h3>WeChat Group</h3>
+      <p>{wechatGroup.note}</p>
+      {
+        wechatGroup.qrImage ? (
+          <p style="margin-top:.9rem">
+            <span class="qr">
+              <img src={url(wechatGroup.qrImage)} alt="WeChat group QR code" loading="lazy" />
+            </span>
+          </p>
+        ) : (
+          null
+        )
+      }
+    </div>
+  </div>
+
+  <h2>Other contacts</h2>
+  <ul class="plain-list">
+    <li>
+      <div class="title">Email</div>
+      <div class="desc">
+        {email.url ? <a href={email.url}>{email.label}</a> : 'Not active yet (planned: hello@rosgz.org).'}
+      </div>
+    </li>
+    <li>
+      <div class="title">Code and content repositories</div>
+      <div class="desc">
+        {github.url ? <a href={github.url}>{github.url}</a> : 'Repository link pending.'}
+      </div>
+    </li>
+  </ul>
+
+  <h2>Ways to take part</h2>
+  <ul class="plain-list">
+    {
+      formats.map((f) => (
+        <li>
+          <div class="title">{f.title}</div>
+          <div class="desc">{f.desc}</div>
+        </li>
+      ))
+    }
+    <li>
+      <div class="title">Contribute to open source</div>
+      <div class="desc">
+        {site.openSourceFocus.join(' / ')} — bring your project, or start by sending someone your first PR.
+      </div>
+    </li>
+    <li>
+      <div class="title">Volunteer</div>
+      <div class="desc">
+        Venue coordination, event notes and photos, turning talks into reproducible write-ups, maintaining this
+        site — all of it needs hands.
+      </div>
+    </li>
+  </ul>
+
+  <div class="notice">
+    <strong>Privacy:</strong> this site is fully static — no personal data is collected or stored, and there are
+    no third-party analytics. Event sign-ups happen on third-party forms; please read their privacy notice before
+    submitting. Please also read our <a href={url('/en/code-of-conduct')}>Code of Conduct</a>.
+  </div>
+</Base>

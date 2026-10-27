@@ -1,0 +1,152 @@
+{
+  "_lang": "en",
+  "_note": "English edition of src/data/site.json. This is a translation: if the Chinese original and this file ever disagree, the Chinese version prevails.",
+  "name": "ROSGZ",
+  "nameZh": "ROS 广州",
+  "nameEn": "ROS Guangzhou",
+  "domain": "https://rosgz.org",
+  "tagline": "Connecting robotics developers in Guangzhou, advancing technical exchange and innovation",
+  "description": "ROS Guangzhou is an open technical community for robotics developers. We connect developers, researchers and founders working on robotics, autonomous driving, AI perception and embodied AI in and around Guangzhou. Built on ROS / ROS 2, the community runs online discussions and offline events to promote knowledge sharing, open-source collaboration and hands-on engineering practice.",
+  "vision": "Connect robotics developers in Guangzhou and advance technical exchange and innovation. ROS has become essential infrastructure for robotics worldwide, yet local developers in many cities are still weakly connected. ROS Guangzhou aims to build a long-term, open, technology-driven community where robotics developers can share experience, exchange ideas, showcase projects and find collaboration opportunities — making Guangzhou one of the most active cities for robotics exchange.",
+  "positioning": "A developer-driven technical community focused on the practice and exchange of robotics technology.",
+  "principle": "Technology exchange first: no paid training, no recruiting agency, no advertising.",
+  "technologyAreas": [
+    {
+      "title": "Robotics Software",
+      "items": ["ROS", "ROS 2", "Robotics Middleware", "Distributed Robot Systems"]
+    },
+    {
+      "title": "Robotics Algorithms",
+      "items": ["Computer Vision (CV)", "SLAM", "Multi-sensor Fusion", "Motion Planning & Control"]
+    },
+    {
+      "title": "Robotic Systems",
+      "items": ["Mobile Robots", "Autonomous Driving", "Unmanned Systems", "Embodied AI"]
+    },
+    {
+      "title": "Developer Ecosystem",
+      "items": ["Open-source Robot Projects", "Robot Hardware Platforms", "AI + Robotics"]
+    }
+  ],
+  "memberProfiles": [
+    "ROS / ROS 2 developers",
+    "Robotics algorithm engineers",
+    "Autonomous driving engineers",
+    "AI / CV / SLAM researchers",
+    "Robotics founders",
+    "University students and researchers",
+    "Open-source robotics contributors"
+  ],
+  "activityFormats": [
+    {
+      "title": "Tech Talks",
+      "desc": "Community members share ROS development experience, robot system architecture, SLAM / CV / AI algorithm practice and open-source robot projects."
+    },
+    {
+      "title": "Developer Meetups",
+      "desc": "Regular offline gatherings: ROS developer meetups, robotics technical exchanges, project demos and discussion."
+    },
+    {
+      "title": "Hackathons / Workshops",
+      "desc": "Hands-on practice that builds collaboration: ROS development workshops, robot system build-outs, open-source robotics hackathons and joint project work."
+    }
+  ],
+  "openSourceFocus": [
+    "ROS-related open-source projects",
+    "Robot software tooling",
+    "Hands-on robot system projects"
+  ],
+  "manifesto": {
+    "belief": "Robotics is essential infrastructure for the future, and developers are the core force driving that future.",
+    "goals": [
+      "Find peers in the same city",
+      "Exchange experience on real projects",
+      "Share technology in the open",
+      "Create new possibilities through collaboration"
+    ],
+    "values": [
+      { "title": "Openness", "desc": "Technology and experience should be shared, not locked away." },
+      { "title": "Practice", "desc": "Robotics does not live in papers and concepts; it has to be actually built." },
+      { "title": "Open Source", "desc": "ROS succeeded because of its open-source community, and ROS Guangzhou continues that culture." },
+      { "title": "Long Term", "desc": "A technical community is not a one-off event, but people connecting and growing together for years." }
+    ]
+  },
+  "joinCriteria": [
+    "You work with ROS / ROS 2",
+    "You work on robotics, autonomous driving or AI perception",
+    "You are simply interested in robotics technology",
+    "You want to meet more robotics developers in Guangzhou"
+  ],
+  "source": {
+    "title": "ROS Guangzhou 社区介绍 (Community Introduction)",
+    "url": "https://mp.weixin.qq.com/s/vVKMGllX4czjG_LgLXygrQ",
+    "channel": "WeChat Official Account: WayToRobots",
+    "retrieved": "2026-10-28"
+  },
+  "organizers": [],
+  "links": {
+    "wechatOfficial": {
+      "label": "WayToRobots",
+      "url": "",
+      "qrImage": "/waytorobots_qr.jpg",
+      "note": "Where our ROS 2 weekly digest and technical articles are published"
+    },
+    "wechatGroup": {
+      "label": "WeChat Group",
+      "url": "",
+      "qrImage": "",
+      "note": "The group QR code is being updated. Follow the official account and leave a message to get the current invitation; group QR codes expire in about 7 days and are rotated inside the group."
+    },
+    "github": {
+      "label": "GitHub",
+      "url": "https://github.com/loonglee2025/rosgz",
+      "note": "Website source repository — content corrections and improvements via PR"
+    },
+    "email": {
+      "label": "Email",
+      "url": "",
+      "note": "Domain mailbox pending, e.g. hello@rosgz.org"
+    }
+  },
+  "weeklyDigests": [
+    {
+      "label": "ROS 2 Weekly Digest",
+      "repo": "https://github.com/loonglee2025/ros2-weekly-digest",
+      "reportsPath": "reports",
+      "cadence": "Updated every Monday"
+    },
+    {
+      "label": "Robotics Research Weekly",
+      "repo": "https://github.com/loonglee2025/robot-research-weekly",
+      "reportsPath": "reports",
+      "cadence": "Updated every Friday"
+    }
+  ],
+  "resources": [
+    {
+      "title": "ROS 2 Official Tutorials (Jazzy)",
+      "url": "https://docs.ros.org/en/jazzy/Tutorials.html",
+      "desc": "Official beginner and advanced tutorials covering nodes, topics, services, launch files and tf2"
+    },
+    {
+      "title": "ROS 2 Design Documents",
+      "url": "https://design.ros2.org/",
+      "desc": "Primary sources for ROS 2 architectural trade-offs — more reliable than secondary summaries"
+    },
+    {
+      "title": "REP 103 / REP 105",
+      "url": "https://ros.org/reps/rep-0103.html",
+      "desc": "Units and coordinate conventions, plus the map/odom/base_link tf tree — essential reading when debugging"
+    },
+    {
+      "title": "ros2-shortcuts",
+      "url": "https://github.com/loonglee2025/ros2",
+      "desc": "An Oh My Zsh plugin for ROS 2: CLI aliases and functions that speed up terminal work"
+    },
+    {
+      "title": "ros2-turtlesim-projects",
+      "url": "https://github.com/loonglee2025/ros2-turtlesim-projects",
+      "desc": "Hands-on code from the turtlesim series (Jazzy), companion to the Chinese tutorial series"
+    }
+  ]
+}

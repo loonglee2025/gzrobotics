@@ -1,40 +1,58 @@
 ---
-import { url, basePath } from '../lib/url';
+import { url } from '../lib/url';
+import { stripBase, langOf, withoutLocale, localePath } from '../lib/i18n';
 
-// 当前路径去掉部署基路径（GitHub Pages 子路径下会带 /rosgz 前缀）
-const rawPath = Astro.url.pathname.replace(/\/+$/, '') || '/';
-const path =
-  basePath && rawPath.startsWith(basePath)
-    ? rawPath.slice(basePath.length) || '/'
-    : rawPath;
+const pathNoBase = stripBase(Astro.url.pathname);
+const lang = langOf(pathNoBase);
+const plain = withoutLocale(pathNoBase);
 
-const nav = [
-  { path: '/', label: '首页' },
-  { path: '/about', label: '关于' },
-  { path: '/manifesto', label: '宣言' },
-  { path: '/events', label: '活动' },
-  { path: '/weekly', label: '周报' },
-  { path: '/resources', label: '资源' },
-  { path: '/join', label: '加入' },
-];
+const navByLang = {
+  zh: [
+    { path: '/', label: '首页' },
+    { path: '/about', label: '关于' },
+    { path: '/manifesto', label: '宣言' },
+    { path: '/events', label: '活动' },
+    { path: '/weekly', label: '周报' },
+    { path: '/resources', label: '资源' },
+    { path: '/join', label: '加入' },
+  ],
+  en: [
+    { path: '/', label: 'Home' },
+    { path: '/about', label: 'About' },
+    { path: '/manifesto', label: 'Manifesto' },
+    { path: '/events', label: 'Events' },
+    { path: '/weekly', label: 'Weekly' },
+    { path: '/resources', label: 'Resources' },
+    { path: '/join', label: 'Join' },
+  ],
+};
 
-const isActive = (item) => (item.path === '/' ? path === '/' : path.startsWith(item.path));
+const nav = navByLang[lang];
+const isActive = (item) => (item.path === '/' ? plain === '/' : plain.startsWith(item.path));
+
+const otherLang = lang === 'zh' ? 'en' : 'zh';
+const switchHref = url(localePath(otherLang, plain));
+const switchLabel = lang === 'zh' ? 'EN' : '中文';
+const switchTitle = lang === 'zh' ? 'Switch to English' : '切换到中文';
 ---
 
 <header class="site-header">
   <div class="wrap">
-    <a class="brand" href={url('/')}>
+    <a class="brand" href={url(localePath(lang, '/'))}>
       <span class="mark">ROSGZ</span>
-      <span class="zh">ROS 广州</span>
+      <span class="zh">{lang === 'zh' ? 'ROS 广州' : 'Guangzhou'}</span>
     </a>
-    <nav class="nav" aria-label="主导航">
+    <nav class="nav" aria-label={lang === 'zh' ? '主导航' : 'Main navigation'}>
       {
         nav.map((item) => (
-          <a href={url(item.path)} aria-current={isActive(item) ? 'page' : undefined}>
+          <a href={url(localePath(lang, item.path))} aria-current={isActive(item) ? 'page' : undefined}>
             {item.label}
           </a>
         ))
       }
+      <a class="lang-switch" href={switchHref} hreflang={otherLang} lang={otherLang} title={switchTitle}>
+        {switchLabel}
+      </a>
     </nav>
   </div>
 </header>

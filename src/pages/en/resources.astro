@@ -1,0 +1,71 @@
+---
+import Base from '../../layouts/Base.astro';
+import site from '../../data/site.en.json';
+import { url } from '../../lib/url';
+
+const resources = site.resources;
+---
+
+<Base
+  title="Resources"
+  description="Getting started with ROS 2: official tutorials, design documents, coordinate conventions and hands-on code."
+>
+  <div class="page-head">
+    <h1>Getting Started</h1>
+    <p>
+      Ordered as "make it run → understand why → avoid the traps". All links point to verifiable public sources.
+    </p>
+  </div>
+
+  <h2>Step 1: environment and your first node</h2>
+  <ul class="plain-list">
+    <li>
+      <div class="title">Pin the version and platform first</div>
+      <div class="desc">
+        Each ROS 2 distribution is tied to specific Ubuntu versions. Before choosing, check which Ubuntu release
+        your target distribution supports and whether upstream still maintains it (follow the official release
+        cadence and EOL announcements). Version facts come from official documentation only.
+      </div>
+    </li>
+    <li>
+      <div class="title">Get turtlesim and talker/listener running</div>
+      <div class="desc">
+        Do not skip the official beginner tutorials: they verify DDS discovery, environment variables and
+        workspace configuration.
+      </div>
+    </li>
+    <li>
+      <div class="title">Build a minimal workspace of your own</div>
+      <div class="desc">
+        One package, one node, one launch file — repeatable builds before features.
+      </div>
+    </li>
+  </ul>
+
+  <h2>References</h2>
+  <ul class="plain-list">
+    {
+      resources.map((r) => (
+        <li>
+          <div class="title">
+            <a href={r.url}>{r.title}</a>
+          </div>
+          <div class="desc">{r.desc}</div>
+        </li>
+      ))
+    }
+  </ul>
+
+  <h2>Hands-on code</h2>
+  <p class="muted">
+    Example repositories maintained by community members are listed above (ros2-shortcuts,
+    ros2-turtlesim-projects). If you have a public example repo worth listing, reach us through the
+    <a href={url('/en/join')}>Join</a> page.
+  </p>
+
+  <div class="notice">
+    <strong>Note:</strong> APIs and recommended practice differ between distributions (Humble, Jazzy, …).
+    Confirm your distribution and dependency versions before copying commands, so that patterns from an older
+    release do not leak into new projects.
+  </div>
+</Base>

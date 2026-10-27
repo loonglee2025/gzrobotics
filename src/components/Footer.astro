@@ -1,24 +1,50 @@
 ---
-import site from '../data/site.json';
+import siteZh from '../data/site.json';
+import siteEn from '../data/site.en.json';
 import { url } from '../lib/url';
+import { stripBase, langOf, localePath } from '../lib/i18n';
+
+const lang = langOf(stripBase(Astro.url.pathname));
+const site = lang === 'zh' ? siteZh : siteEn;
 const year = new Date().getFullYear();
+const brand =
+  lang === 'zh' ? `${site.nameZh}（${site.name}）` : `${site.name} · ${site.nameEn}`;
+
+const copy =
+  lang === 'zh'
+    ? {
+        disclaimer:
+          'ROSGZ 是独立的地方性社区组织，与 Open Robotics / OSRF 无隶属关系，亦不代表其官方立场。「ROS」是 Open Robotics 的注册商标。本站所有活动与内容均由社区志愿者组织，文中观点仅代表分享者个人。',
+        about: '关于',
+        manifesto: '社区宣言',
+        coc: '行为准则',
+        join: '加入社区',
+        rights: `© ${year} ROSGZ Community · 内容以 CC BY 4.0 方式共享（另有标注者除外）`,
+      }
+    : {
+        disclaimer:
+          'ROSGZ is an independent local community organization, with no affiliation to Open Robotics / OSRF and no authority to speak for them. "ROS" is a registered trademark of Open Robotics. All events and content are organized by community volunteers; opinions expressed belong to the individual speakers.',
+        about: 'About',
+        manifesto: 'Manifesto',
+        coc: 'Code of Conduct',
+        join: 'Join',
+        rights: `© ${year} ROSGZ Community · Content shared under CC BY 4.0 unless otherwise noted`,
+      };
 ---
 
 <footer class="site-footer">
   <div class="wrap rows">
     <div>
-      <strong style="color:var(--text)">{site.nameZh}（{site.name}）</strong>
-      — {site.nameEn} · <span class="muted">{site.domain.replace('https://', '')}</span>
+      <strong style="color:var(--text)">{brand}</strong>
+      · <span class="muted">{site.domain.replace('https://', '')}</span>
     </div>
-    <div class="disclaimer">
-      ROSGZ 是独立的地方性技术社区组织，与 Open Robotics / OSRF 无隶属关系，
-      亦不代表其官方立场。「ROS」是 Open Robotics 的注册商标。本站所有活动与内容均由社区志愿者组织，
-      文中观点仅代表分享者个人。
-    </div>
+    <div class="disclaimer">{copy.disclaimer}</div>
     <div class="muted">
-      <a href={url('/about')}>关于</a> · <a href={url('/manifesto')}>社区宣言</a> ·
-      <a href={url('/code-of-conduct')}>行为准则</a> · <a href={url('/join')}>加入社区</a>
+      <a href={url(localePath(lang, '/about'))}>{copy.about}</a> ·
+      <a href={url(localePath(lang, '/manifesto'))}>{copy.manifesto}</a> ·
+      <a href={url(localePath(lang, '/code-of-conduct'))}>{copy.coc}</a> ·
+      <a href={url(localePath(lang, '/join'))}>{copy.join}</a>
     </div>
-    <div class="muted">© {year} ROSGZ Community · 内容以 CC BY 4.0 方式共享（另有标注者除外）</div>
+    <div class="muted">{copy.rights}</div>
   </div>
 </footer>

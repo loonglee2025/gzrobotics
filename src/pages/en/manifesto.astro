@@ -1,0 +1,58 @@
+---
+import Base from '../../layouts/Base.astro';
+import site from '../../data/site.en.json';
+import { url } from '../../lib/url';
+
+const m = site.manifesto;
+---
+
+<Base
+  title="Manifesto"
+  description="ROS Guangzhou community manifesto: openness, practice, open-source spirit and long-term commitment."
+>
+  <div class="page-head">
+    <h1>Community Manifesto</h1>
+    <p>What we believe and how we work.</p>
+  </div>
+
+  <div class="card" style="padding:1.6rem 1.5rem">
+    <p style="font-size:1.12rem;line-height:1.85;margin:0">
+      We believe: <strong>{m.belief}</strong>
+    </p>
+  </div>
+
+  <h2>ROS Guangzhou exists so that robotics developers can:</h2>
+  <ul class="plain-list">
+    {m.goals.map((g) => (<li><div class="title">{g}</div></li>))}
+  </ul>
+
+  <h2>We encourage</h2>
+  <div class="grid">
+    {
+      m.values.map((v, i) => (
+        <div class="card">
+          <span class="meta" style="margin-top:0">0{i + 1}</span>
+          <h3 style="margin-top:.35rem">{v.title}</h3>
+          <p>{v.desc}</p>
+        </div>
+      ))
+    }
+  </div>
+
+  <h2>Build it with us</h2>
+  <p style="max-width:62ch">
+    A technical community is not a one-off event, but people connecting and growing together over years.
+    If these principles resonate with you, join ROS Guangzhou and help build a city community that truly
+    belongs to robotics developers.
+  </p>
+  <p style="margin-top:1.2rem">
+    <a class="btn btn-primary" href={url('/en/join')}>Join the community</a>
+    <a class="btn btn-ghost" href={url('/en/about')} style="margin-left:.6rem">More about us</a>
+  </p>
+
+  <div class="notice" style="margin-top:2rem">
+    Adapted from the community introduction <a href={site.source.url} lang="zh-CN">{site.source.title}</a>
+    ({site.source.channel}, retrieved {site.source.retrieved}).
+    If the community updates the wording, the latest Chinese release prevails.
+  </div>
+</Base>
