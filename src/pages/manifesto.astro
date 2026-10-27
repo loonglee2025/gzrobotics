@@ -1,0 +1,55 @@
+---
+import Base from '../layouts/Base.astro';
+import site from '../data/site.json';
+
+const m = site.manifesto;
+---
+
+<Base
+  title="社区宣言"
+  description="ROS Guangzhou 社区宣言（Community Manifesto）：开放、实践、开源精神、长期主义。"
+>
+  <div class="page-head">
+    <h1>社区宣言</h1>
+    <p>Community Manifesto</p>
+  </div>
+
+  <div class="card" style="padding:1.6rem 1.5rem">
+    <p style="font-size:1.12rem;line-height:1.85;margin:0">
+      我们相信：<strong>{m.belief}</strong>
+    </p>
+  </div>
+
+  <h2>ROS Guangzhou 的存在，是为了让机器人开发者能够——</h2>
+  <ul class="plain-list">
+    {m.goals.map((g) => (<li><div class="title">{g}</div></li>))}
+  </ul>
+
+  <h2>我们鼓励</h2>
+  <div class="grid">
+    {
+      m.values.map((v, i) => (
+        <div class="card">
+          <span class="meta" style="margin-top:0">0{i + 1}</span>
+          <h3 style="margin-top:.35rem">{v.title}</h3>
+          <p>{v.desc}</p>
+        </div>
+      ))
+    }
+  </div>
+
+  <h2>一起构建</h2>
+  <p style="max-width:62ch">
+    技术社区不是一次活动，而是一群人持续多年的连接与成长。如果你认同这些原则，
+    欢迎加入 ROS Guangzhou，一起构建一个真正属于机器人开发者的城市社区。
+  </p>
+  <p style="margin-top:1.2rem">
+    <a class="btn btn-primary" href="/join">加入社区</a>
+    <a class="btn btn-ghost" href="/about" style="margin-left:.6rem">了解社区详情</a>
+  </p>
+
+  <div class="notice" style="margin-top:2rem">
+    本文本整理自社区介绍《{site.source.title}》（{site.source.channel}，{site.source.retrieved}），
+    原文链接：<a href={site.source.url}>mp.weixin.qq.com</a>。如社区后续更新宣言表述，请以最新发布为准。
+  </div>
+</Base>

@@ -7,13 +7,23 @@ const wechatOfficial = links.wechatOfficial;
 const wechatGroup = links.wechatGroup;
 const email = links.email;
 const github = links.github;
+const criteria = site.joinCriteria;
+const formats = site.activityFormats;
 ---
 
-<Base title="加入社群" description="加入 ROSGZ（ROS 广州）的入群渠道、参与方式与志愿者招募说明。">
+<Base
+  title="加入社区"
+  description="加入 ROS Guangzhou（ROS 广州）：面向 ROS / ROS 2 开发者、机器人算法工程师、自动驾驶工程师、AI 感知研究者、创业者与高校学生的开放技术社区。"
+>
   <div class="page-head">
-    <h1>加入社群</h1>
-    <p>不需要审核、不需要履历：在广州（或愿意来广州）做机器人相关的事，都欢迎。</p>
+    <h1>加入社区</h1>
+    <p>如果你正在做机器人相关的事，或对此充满兴趣——欢迎加入 ROS Guangzhou，一起构建一个真正属于机器人开发者的城市社区。</p>
   </div>
+
+  <h2>如果你是这样的人</h2>
+  <ul class="plain-list">
+    {criteria.map((c) => (<li><div class="title">{c}</div></li>))}
+  </ul>
 
   <h2>入群与关注渠道</h2>
   <div class="grid">
@@ -68,24 +78,22 @@ const github = links.github;
 
   <h2>可以怎么参与</h2>
   <ul class="plain-list">
+    {
+      formats.map((f) => (
+        <li>
+          <div class="title">{f.title}</div>
+          <div class="desc">{f.desc}</div>
+        </li>
+      ))
+    }
     <li>
-      <div class="title">来听</div>
-      <div class="desc">零门槛。带上你的问题，现场提问比会后私聊更容易得到完整答案。</div>
+      <div class="title">参与开源协作</div>
+      <div class="desc">{site.openSourceFocus.join('、')}——欢迎带着项目来，或者从给别人提第一个 PR 开始。</div>
     </li>
     <li>
-      <div class="title">来讲</div>
-      <div class="desc">15–40 分钟皆可。踩坑复盘、工具对比、项目架构、仿真与真机差异，都是好题目。</div>
-    </li>
-    <li>
-      <div class="title">来帮忙</div>
+      <div class="title">做志愿者</div>
       <div class="desc">
-        志愿者岗位：场地联络、活动记录（拍照/纪要）、内容整理（把分享整理成可复现文档）、站点维护（本仓库）。
-      </div>
-    </li>
-    <li>
-      <div class="title">提供场地</div>
-      <div class="desc">
-        有会议室/实验室可容纳 20–40 人（投影、网络、可充电插座）欢迎联系我们；场地支持会在活动中明确致谢。
+        场地联络、活动记录（拍照/纪要）、内容整理（把分享整理成可复现文档）、站点维护，都需要人手。
       </div>
     </li>
   </ul>
@@ -93,5 +101,6 @@ const github = links.github;
   <div class="notice">
     <strong>隐私说明：</strong>本站为纯静态页面，不收集、不存储任何个人信息，也不使用第三方追踪统计。
     活动报名通过第三方表单进行，提交前请阅读该表单的隐私说明。
+    参与社区活动请先阅读 <a href="/code-of-conduct">社区行为准则</a>。
   </div>
 </Base>

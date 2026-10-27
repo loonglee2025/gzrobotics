@@ -1,11 +1,82 @@
 {
   "name": "ROSGZ",
   "nameZh": "ROS 广州",
-  "nameEn": "ROS Guangzhou User Group",
+  "nameEn": "ROS Guangzhou",
   "domain": "https://rosgz.org",
-  "tagline": "广州及大湾区 ROS 2 开发者的技术交流社群",
-  "description": "ROSGZ（ROS 广州）是面向广州及大湾区的 ROS 2 / 机器人技术交流社群，例行组织线下技术分享、动手工作坊与项目复盘。",
-  "positioning": "纯技术交流社群：以 ROS 2 工程实践为主线，不做商业培训、招聘与广告投放。",
+  "tagline": "连接广州的机器人开发者，推动机器人技术交流与创新",
+  "description": "ROS Guangzhou（ROS 广州）是一个面向机器人开发者的开放技术社区，连接在广州及周边地区从事机器人、自动驾驶、AI 感知、具身智能等相关领域的开发者、研究者与创业者。社区以 ROS / ROS 2 为技术基础，通过线上交流与线下活动，推动技术分享、开源协作与工程实践。",
+  "vision": "连接广州的机器人开发者，推动机器人技术交流与创新。ROS 已成为全球机器人开发的重要基础设施，但在很多城市，本地开发者之间的连接仍然较少。ROS Guangzhou 希望构建一个长期、开放、技术导向的社区，让机器人开发者能够分享经验、交流技术、展示项目、发现合作机会——让广州成为机器人技术交流最活跃的城市之一。",
+  "positioning": "开发者驱动的技术社区，专注于机器人技术的实践与交流。",
+  "principle": "以技术交流为目的：不做付费培训、不做招聘中介、不投放广告。",
+  "technologyAreas": [
+    {
+      "title": "机器人软件",
+      "items": ["ROS", "ROS 2", "Robotics Middleware", "分布式机器人系统"]
+    },
+    {
+      "title": "机器人算法",
+      "items": ["计算机视觉（CV）", "SLAM", "多传感器融合", "运动规划与控制"]
+    },
+    {
+      "title": "机器人系统",
+      "items": ["移动机器人", "自动驾驶", "无人系统", "具身智能（Embodied AI）"]
+    },
+    {
+      "title": "机器人开发生态",
+      "items": ["开源机器人项目", "机器人硬件平台", "AI + Robotics"]
+    }
+  ],
+  "memberProfiles": [
+    "ROS / ROS 2 开发者",
+    "机器人算法工程师",
+    "自动驾驶工程师",
+    "AI / CV / SLAM 研究人员",
+    "机器人创业者",
+    "高校学生与研究者",
+    "开源机器人项目贡献者"
+  ],
+  "activityFormats": [
+    {
+      "title": "技术分享（Tech Talk）",
+      "desc": "邀请社区成员分享 ROS 开发经验、机器人系统架构、SLAM / CV / AI 算法实践与开源机器人项目。"
+    },
+    {
+      "title": "开发者 Meetup",
+      "desc": "定期组织线下交流活动：ROS 开发者聚会、机器人技术交流会、项目展示与讨论。"
+    },
+    {
+      "title": "Hackathon / Workshop",
+      "desc": "通过实践活动促进技术合作：ROS 开发 Workshop、机器人系统搭建、开源机器人 Hackathon、开源项目协作。"
+    }
+  ],
+  "openSourceFocus": ["ROS 相关开源项目", "机器人软件工具开发", "机器人系统实践项目"],
+  "manifesto": {
+    "belief": "机器人是未来的重要基础设施，而开发者是推动这一未来的核心力量。",
+    "goals": [
+      "在同一座城市找到同行者",
+      "在真实项目中交流经验",
+      "在开放环境中分享技术",
+      "在协作中创造新的可能"
+    ],
+    "values": [
+      { "title": "开放", "desc": "技术与经验应该被分享，而不是被封闭。" },
+      { "title": "实践", "desc": "机器人不是停留在论文和概念中的技术，它需要被真正构建出来。" },
+      { "title": "开源精神", "desc": "ROS 的成功源于开源社区，ROS Guangzhou 也将延续这种文化。" },
+      { "title": "长期主义", "desc": "技术社区不是一次活动，而是一群人持续多年的连接与成长。" }
+    ]
+  },
+  "joinCriteria": [
+    "正在使用 ROS / ROS 2",
+    "从事机器人 / 自动驾驶 / AI 感知",
+    "对机器人技术充满兴趣",
+    "希望认识更多本地机器人开发者"
+  ],
+  "source": {
+    "title": "ROS Guangzhou 社区介绍",
+    "url": "https://mp.weixin.qq.com/s/vVKMGllX4czjG_LgLXygrQ",
+    "channel": "公众号 WayToRobots",
+    "retrieved": "2026-10-28"
+  },
   "organizers": [],
   "links": {
     "wechatOfficial": {

@@ -6,47 +6,42 @@ import eventsData from '../data/events.json';
 const events = eventsData.events ?? [];
 const upcoming = events.filter((e) => e.status === 'upcoming');
 const latestEvent = upcoming[0];
-const totalEvents = events.length;
+const areas = site.technologyAreas;
+const values = site.manifesto.values;
+const formats = site.activityFormats;
 ---
 
 <Base>
   <section class="hero">
     <p class="muted" style="margin:0;font-family:var(--mono);font-size:.82rem;letter-spacing:.1em">
-      ROS GUANGZHOU USER GROUP
+      ROS GUANGZHOU · 广州机器人开发者社区
     </p>
-    <h1>在广州，把 <span class="accent">ROS 2</span> 做成能跑起来的工程</h1>
+    <h1>连接广州的<span class="accent">机器人开发者</span></h1>
     <p class="lead">
-      {site.tagline}。月度线下技术分享、动手工作坊与项目复盘——讲清版本、讲清依赖、讲清现场为什么会崩。
+      面向机器人开发者的开放技术社区：以 ROS / ROS 2 为技术基础，连接在广州及周边从事机器人、自动驾驶、
+      AI 感知、具身智能的开发者、研究者与创业者——通过线上交流与线下活动，推动技术分享、开源协作与工程实践。
     </p>
     <div class="cta-row">
-      <a class="btn btn-primary" href="/join">加入社群</a>
-      <a class="btn btn-ghost" href="/events">查看活动</a>
-      <a class="btn btn-ghost" href="/weekly">读技术周报</a>
+      <a class="btn btn-primary" href="/join">加入社区</a>
+      <a class="btn btn-ghost" href="/manifesto">读社区宣言</a>
+      <a class="btn btn-ghost" href="/weekly">技术周报</a>
     </div>
   </section>
 
+  <h2>社区关注的技术方向</h2>
   <div class="grid">
-    <div class="card">
-      <h3>线下技术分享</h3>
-      <p>
-        每月一场，主题围绕 ROS 2 工程实践：实时性调优、DDS 通信、tf2 与坐标约定、导航栈落地、真机调试。
-      </p>
-      <span class="meta">{totalEvents > 0 ? `共 ${totalEvents} 场记录` : '活动排期整理中'}</span>
-    </div>
-    <div class="card">
-      <h3>技术周报双频道</h3>
-      <p>
-        ROS 2 技术周报（每周一）与机器人研究周报（每周五），追踪上游变更、发布节奏与前沿论文。
-      </p>
-      <span class="meta">来自公开仓库</span>
-    </div>
-    <div class="card">
-      <h3>入门与踩坑清单</h3>
-      <p>
-        从环境搭建到第一个节点，再到 REP 103/105 坐标约定：把新同学最容易卡住的地方写成可执行的路径。
-      </p>
-      <span class="meta">持续补充</span>
-    </div>
+    {
+      areas.map((area) => (
+        <div class="card">
+          <h3>{area.title}</h3>
+          <div class="tags" style="margin-top:.5rem">
+            {area.items.map((it) => (
+              <span class="tag">{it}</span>
+            ))}
+          </div>
+        </div>
+      ))
+    }
   </div>
 
   {
@@ -56,7 +51,7 @@ const totalEvents = events.length;
         <div class="event">
           <div class="date">{latestEvent.date}</div>
           <div>
-            <div class="title" style="font-weight:600">{latestEvent.title}</div>
+            <div style="font-weight:600">{latestEvent.title}</div>
             <p class="muted" style="margin:.3rem 0 0;font-size:.93rem">{latestEvent.summary}</p>
             {latestEvent.signupUrl && (
               <p style="margin:.6rem 0 0">
@@ -69,25 +64,45 @@ const totalEvents = events.length;
     )
   }
 
-  <h2>这个站点做什么</h2>
+  <h2>我们相信</h2>
+  <p class="muted" style="max-width:62ch">{site.manifesto.belief}</p>
+  <div class="grid">
+    {
+      values.map((v) => (
+        <div class="card">
+          <h3>{v.title}</h3>
+          <p>{v.desc}</p>
+        </div>
+      ))
+    }
+  </div>
+  <p style="margin-top:1rem">
+    <a href="/manifesto">完整社区宣言 →</a>
+  </p>
+
+  <h2>社区活动形式</h2>
   <ul class="plain-list">
-    <li>
-      <div class="title">把「广州有人在做 ROS」变成看得见的事实</div>
-      <div class="desc">记录活动、参与者和分享主题，让新同学知道本地可以找到谁、聊什么。</div>
-    </li>
-    <li>
-      <div class="title">把技术内容沉淀下来</div>
-      <div class="desc">分享的要点、踩过的坑、可复现的步骤，进仓库、进周报，而不是消失在群聊里。</div>
-    </li>
-    <li>
-      <div class="title">降低第一次参加的门槛</div>
-      <div class="desc">不需要是专家：学生、转行者、硬件工程师、做产品的同学都可以来听、来问。</div>
-    </li>
+    {
+      formats.map((f) => (
+        <li>
+          <div class="title">{f.title}</div>
+          <div class="desc">{f.desc}</div>
+        </li>
+      ))
+    }
   </ul>
 
+  <h2>这里适合谁</h2>
+  <div class="tags" style="gap:.5rem">
+    {site.memberProfiles.map((p) => <span class="tag">{p}</span>)}
+  </div>
+  <p class="muted" style="margin-top:.9rem">
+    无论是刚入门的开发者，还是多年经验的工程师，都欢迎加入社区。
+  </p>
+
   <div class="notice">
-    <strong>关于本社区的身份：</strong>ROSGZ 是由志愿者自发组织的<strong>地方性技术交流社群</strong>，
+    <strong>关于本社区的身份：</strong>ROS Guangzhou 是由开发者自发组织的<strong>开放技术社区</strong>，
     与 Open Robotics / OSRF 无隶属关系，也不以任何官方名义活动。
-    本站定位为纯技术交流：不做商业培训、不做招聘中介、不投放广告。
+    {site.principle}
   </div>
 </Base>

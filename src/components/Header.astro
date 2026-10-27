@@ -4,11 +4,11 @@ const path = Astro.url.pathname.replace(/\/+$/, '') || '/';
 const nav = [
   { href: '/', label: '首页' },
   { href: '/about', label: '关于' },
+  { href: '/manifesto', label: '宣言' },
   { href: '/events', label: '活动' },
   { href: '/weekly', label: '周报' },
   { href: '/resources', label: '资源' },
   { href: '/join', label: '加入' },
-  { href: '/code-of-conduct', label: '行为准则' },
 ];
 
 const isActive = (href) => (href === '/' ? path === '/' : path.startsWith(href));

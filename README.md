@@ -1,9 +1,10 @@
-# ROSGZ — ROS 广州社群官网
+# ROSGZ — ROS 广州（ROS Guangzhou）社区官网
 
-ROS 广州（ROS Guangzhou User Group）的官方网站：静态站点，零后端，内容全部 Git 化。
+ROS Guangzhou 的官方网站：静态站点，零后端，内容全部 Git 化。
 
 - 正式域名（已定）：`https://rosgz.org`（保护性注册 `rosgz.com` 并 301 到主域）
-- 站点定位（已定）：**纯技术交流社群**——以 ROS 2 工程实践为主线，不做商业培训、招聘中介与广告投放
+- 站点定位（已定，依据社区介绍原文）：**面向机器人开发者的开放技术社区**——以 ROS / ROS 2 为技术基础，连接广州及周边从事机器人、自动驾驶、AI 感知、具身智能的开发者、研究者与创业者；不做付费培训、招聘中介与广告投放
+- 内容来源：公众号 WayToRobots《ROS Guangzhou 社区介绍》（检索日期 2026-10-28，见 `src/data/site.json` 的 `source` 字段）
 - 技术栈：Astro（纯静态）、原生 CSS（无 UI 框架依赖）、数据用 JSON
 - 部署目标：Cloudflare Pages（Git 集成，PR 预览 + 一键回滚）
 
@@ -13,7 +14,7 @@ ROS 广州（ROS Guangzhou User Group）的官方网站：静态站点，零后�
 
 - [x] 目录与工程骨架（Astro 配置、TS 配置、.gitignore）
 - [x] 全局布局：Header / Footer（含 ROS 商标与非官方声明）、深蓝青视觉、移动端适配
-- [x] 页面：首页、关于、活动、周报、资源、加入、行为准则、404
+- [x] 页面：首页、关于、社区宣言、活动、周报、资源、加入、行为准则、404（共 9 页）
 - [x] 数据层：`src/data/site.json`（品牌/渠道/周报源/资源）、`src/data/events.json`（活动，含 schema 注释）
 - [x] CI 工作流（`.github/workflows/ci.yml`：安装依赖 + 构建）
 - [x] 部署与域名绑定手册（`docs/DEPLOY.md`）
