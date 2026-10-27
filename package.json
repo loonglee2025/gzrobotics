@@ -1,0 +1,16 @@
+{
+  "name": "rosgz-website",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "ROSGZ — ROS 广州（ROS Guangzhou User Group）社群官网",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check"
+  },
+  "dependencies": {
+    "astro": "^6.4.8"
+  }
+}

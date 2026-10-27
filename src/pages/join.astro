@@ -1,0 +1,97 @@
+---
+import Base from '../layouts/Base.astro';
+import site from '../data/site.json';
+
+const links = site.links;
+const wechatOfficial = links.wechatOfficial;
+const wechatGroup = links.wechatGroup;
+const email = links.email;
+const github = links.github;
+---
+
+<Base title="加入社群" description="加入 ROSGZ（ROS 广州）的入群渠道、参与方式与志愿者招募说明。">
+  <div class="page-head">
+    <h1>加入社群</h1>
+    <p>不需要审核、不需要履历：在广州（或愿意来广州）做机器人相关的事，都欢迎。</p>
+  </div>
+
+  <h2>入群与关注渠道</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>公众号：{wechatOfficial.label}</h3>
+      <p>{wechatOfficial.note}</p>
+      {
+        wechatOfficial.qrImage ? (
+          <p style="margin-top:.9rem">
+            <span class="qr">
+              <img src={wechatOfficial.qrImage} alt={`${wechatOfficial.label} 二维码`} loading="lazy" />
+            </span>
+          </p>
+        ) : (
+          <p class="muted" style="margin-top:.7rem">二维码待补充。</p>
+        )
+      }
+    </div>
+
+    <div class="card">
+      <h3>微信群</h3>
+      <p>{wechatGroup.note}</p>
+      {
+        wechatGroup.qrImage ? (
+          <p style="margin-top:.9rem">
+            <span class="qr">
+              <img src={wechatGroup.qrImage} alt="微信群二维码" loading="lazy" />
+            </span>
+          </p>
+        ) : (
+          null
+        )
+      }
+    </div>
+  </div>
+
+  <h2>其他联络方式</h2>
+  <ul class="plain-list">
+    <li>
+      <div class="title">联络邮箱</div>
+      <div class="desc">
+        {email.url ? <a href={email.url}>{email.label}</a> : '待启用（建议使用域名邮箱，如 hello@rosgz.org）。'}
+      </div>
+    </li>
+    <li>
+      <div class="title">代码与内容仓库</div>
+      <div class="desc">
+        {github.url ? <a href={github.url}>{github.url}</a> : '待确定仓库归属后填入（站点已开源，接受内容勘误 PR）。'}
+      </div>
+    </li>
+  </ul>
+
+  <h2>可以怎么参与</h2>
+  <ul class="plain-list">
+    <li>
+      <div class="title">来听</div>
+      <div class="desc">零门槛。带上你的问题，现场提问比会后私聊更容易得到完整答案。</div>
+    </li>
+    <li>
+      <div class="title">来讲</div>
+      <div class="desc">15–40 分钟皆可。踩坑复盘、工具对比、项目架构、仿真与真机差异，都是好题目。</div>
+    </li>
+    <li>
+      <div class="title">来帮忙</div>
+      <div class="desc">
+        志愿者岗位：场地联络、活动记录（拍照/纪要）、内容整理（把分享整理成可复现文档）、站点维护（本仓库）。
+      </div>
+    </li>
+    <li>
+      <div class="title">提供场地</div>
+      <div class="desc">
+        有会议室/实验室可容纳 20–40 人（投影、网络、可充电插座）欢迎联系我们；场地支持会在活动中明确致谢。
+      </div>
+    </li>
+  </ul>
+
+  <div class="notice">
+    <strong>隐私说明：</strong>本站为纯静态页面，不收集、不存储任何个人信息，也不使用第三方追踪统计。
+    活动报名通过第三方表单进行，提交前请阅读该表单的隐私说明。
+  </div>
+</Base>

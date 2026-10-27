@@ -1,0 +1,97 @@
+---
+import Base from '../../layouts/Base.astro';
+import eventsData from '../../data/events.json';
+
+const events = [...(eventsData.events ?? [])].sort((a, b) => (a.date < b.date ? 1 : -1));
+const upcoming = events.filter((e) => e.status === 'upcoming').reverse();
+const past = events.filter((e) => e.status !== 'upcoming');
+
+const modeLabel = { offline: '线下', online: '线上', hybrid: '线上+线下' };
+
+function range(ev) {
+  return ev.endDate && ev.endDate !== ev.date ? `${ev.date} → ${ev.endDate}` : ev.date;
+}
+---
+
+<Base title="活动" description="ROSGZ 在广州及大湾区的线下技术分享、动手工作坊与项目复盘的活动记录与排期。">
+  <div class="page-head">
+    <h1>活动</h1>
+    <p>线下技术分享、动手工作坊与项目复盘。所有活动的报名通过第三方表单进行，本站不收集个人信息。</p>
+  </div>
+
+  <h2>即将开始</h2>
+  {
+    upcoming.length > 0 ? (
+      <div class="event-list">
+        {upcoming.map((ev) => (
+          <article class="event">
+            <div class="date">{range(ev)}</div>
+            <div>
+              <div style="font-weight:600">{ev.title}</div>
+              <p class="muted" style="margin:.3rem 0 0;font-size:.93rem">{ev.summary}</p>
+              <p class="muted" style="margin:.35rem 0 0;font-size:.86rem">
+                {ev.city}
+                {ev.venue ? ` · ${ev.venue}` : ''}
+                {ev.mode ? ` · ${modeLabel[ev.mode] ?? ev.mode}` : ''}
+              </p>
+              {ev.signupUrl && (
+                <p style="margin:.7rem 0 0">
+                  <a class="btn btn-primary" href={ev.signupUrl}>报名</a>
+                </p>
+              )}
+              <div class="tags">
+                {(ev.tags ?? []).map((t) => <span class="tag">{t}</span>)}
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    ) : (
+      <div class="notice">
+        <strong>排期整理中。</strong>下一场活动的主题、时间与场地确定后会在此处与
+        <a href="/join">社群渠道</a>同步发布。
+      </div>
+    )
+  }
+
+  <h2>往期活动</h2>
+  {
+    past.length > 0 ? (
+      <div class="event-list">
+        {past.map((ev) => (
+          <article class="event">
+            <div class="date">{range(ev)}</div>
+            <div>
+              <div style="font-weight:600">{ev.title}</div>
+              <p class="muted" style="margin:.3rem 0 0;font-size:.93rem">{ev.summary}</p>
+              <p class="muted" style="margin:.35rem 0 0;font-size:.86rem">
+                {ev.city}
+                {ev.venue ? ` · ${ev.venue}` : ''}
+              </p>
+              {ev.recapUrl && (
+                <p style="margin:.6rem 0 0;font-size:.9rem">
+                  <a href={ev.recapUrl}>查看回顾</a>
+                </p>
+              )}
+              <div class="tags">
+                {(ev.tags ?? []).map((t) => <span class="tag">{t}</span>)}
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    ) : (
+      <div class="notice">
+        往期活动的日期、主题与回顾材料正在整理录入。如需第一时间获得通知，请先
+        <a href="/join">加入社群</a>。
+      </div>
+    )
+  }
+
+  <h2>想来分享？</h2>
+  <p>
+    我们欢迎任何与 ROS 2 / 机器人软件相关的主题：踩坑复盘、工具链、仿真、真机部署、团队协作方式。
+    不需要是「大厂」或「专家」——把一个问题讲透就够。请在
+    <a href="/join">加入社群</a> 页面所列入群渠道中联系我们。
+  </p>
+</Base>

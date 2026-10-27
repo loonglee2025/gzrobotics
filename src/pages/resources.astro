@@ -1,0 +1,61 @@
+---
+import Base from '../layouts/Base.astro';
+import site from '../data/site.json';
+
+const resources = site.resources;
+---
+
+<Base title="资源" description="ROS 2 入门路径与常用参考：官方教程、设计文档、坐标约定与本地实战代码。">
+  <div class="page-head">
+    <h1>入门与资源</h1>
+    <p>按「能跑起来 → 知道为什么 → 少踩坑」的顺序整理。链接均为可核验的公开来源。</p>
+  </div>
+
+  <h2>第一步：环境与第一个节点</h2>
+  <ul class="plain-list">
+    <li>
+      <div class="title">确认版本与平台</div>
+      <div class="desc">
+        ROS 2 的发行版与 Ubuntu 版本强绑定。选型前先确认目标发行版支持哪个 Ubuntu 版本，
+        再看上游是否仍在维护（关注官方发布节奏与 EOL 公告）。版本信息以官方文档为准。
+      </div>
+    </li>
+    <li>
+      <div class="title">跑通 turtlesim 与 talker/listener</div>
+      <div class="desc">
+        不要跳过官方初学者教程：它能验证 DDS 发现、环境变量与工作空间配置是否正常。
+      </div>
+    </li>
+    <li>
+      <div class="title">建立自己的最小工作空间</div>
+      <div class="desc">
+        一个包、一个节点、一个 launch 文件，能重复构建通过后再谈功能。
+      </div>
+    </li>
+  </ul>
+
+  <h2>常用参考</h2>
+  <ul class="plain-list">
+    {
+      resources.map((r) => (
+        <li>
+          <div class="title">
+            <a href={r.url}>{r.title}</a>
+          </div>
+          <div class="desc">{r.desc}</div>
+        </li>
+      ))
+    }
+  </ul>
+
+  <h2>本地实战代码</h2>
+  <p class="muted">
+    社群成员维护的示例仓库见上表（ros2-shortcuts、ros2-turtlesim-projects）。
+    如你有可公开的示例仓库希望收录，请在入群渠道联系我们。
+  </p>
+
+  <div class="notice">
+    <strong>注意：</strong>不同发行版（Humble / Jazzy 等）的 API 与推荐做法存在差异。
+    抄命令前先确认发行版与依赖版本，避免把旧版本的写法带进新项目。
+  </div>
+</Base>

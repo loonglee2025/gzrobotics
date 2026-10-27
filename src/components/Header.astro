@@ -1,0 +1,33 @@
+---
+const path = Astro.url.pathname.replace(/\/+$/, '') || '/';
+
+const nav = [
+  { href: '/', label: '首页' },
+  { href: '/about', label: '关于' },
+  { href: '/events', label: '活动' },
+  { href: '/weekly', label: '周报' },
+  { href: '/resources', label: '资源' },
+  { href: '/join', label: '加入' },
+  { href: '/code-of-conduct', label: '行为准则' },
+];
+
+const isActive = (href) => (href === '/' ? path === '/' : path.startsWith(href));
+---
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/">
+      <span class="mark">ROSGZ</span>
+      <span class="zh">ROS 广州</span>
+    </a>
+    <nav class="nav" aria-label="主导航">
+      {
+        nav.map((item) => (
+          <a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>
+            {item.label}
+          </a>
+        ))
+      }
+    </nav>
+  </div>
+</header>

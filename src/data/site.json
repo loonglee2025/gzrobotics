@@ -1,0 +1,75 @@
+{
+  "name": "ROSGZ",
+  "nameZh": "ROS 广州",
+  "nameEn": "ROS Guangzhou User Group",
+  "domain": "https://rosgz.org",
+  "tagline": "广州及大湾区 ROS 2 开发者的技术交流社群",
+  "description": "ROSGZ（ROS 广州）是面向广州及大湾区的 ROS 2 / 机器人技术交流社群，例行组织线下技术分享、动手工作坊与项目复盘。",
+  "positioning": "纯技术交流社群：以 ROS 2 工程实践为主线，不做商业培训、招聘与广告投放。",
+  "organizers": [],
+  "links": {
+    "wechatOfficial": {
+      "label": "WayToRobots",
+      "url": "",
+      "qrImage": "/waytorobots_qr.jpg",
+      "note": "ROS 2 技术周报与技术文章发布渠道"
+    },
+    "wechatGroup": {
+      "label": "微信群",
+      "url": "",
+      "qrImage": "",
+      "note": "入群二维码更新中。可先关注公众号，通过公众号留言获取最新入群方式；群二维码有效期约 7 天，届时会在群内更换。"
+    },
+    "github": {
+      "label": "GitHub",
+      "url": "",
+      "note": "TO-DO：确定仓库归属后填入（见 README 拍板项 2）"
+    },
+    "email": {
+      "label": "联络邮箱",
+      "url": "",
+      "note": "TO-DO：建议使用域名邮箱，如 hello@rosgz.org"
+    }
+  },
+  "weeklyDigests": [
+    {
+      "label": "ROS 2 技术周报",
+      "repo": "https://github.com/loonglee2025/ros2-weekly-digest",
+      "reportsPath": "reports",
+      "cadence": "每周一更新"
+    },
+    {
+      "label": "机器人研究周报",
+      "repo": "https://github.com/loonglee2025/robot-research-weekly",
+      "reportsPath": "reports",
+      "cadence": "每周五更新"
+    }
+  ],
+  "resources": [
+    {
+      "title": "ROS 2 官方教程（Jazzy）",
+      "url": "https://docs.ros.org/en/jazzy/Tutorials.html",
+      "desc": "官方入门与进阶教程，覆盖节点、话题、服务、launch、tf2 等基础"
+    },
+    {
+      "title": "ROS 2 设计文档",
+      "url": "https://design.ros2.org/",
+      "desc": "理解 ROS 2 架构取舍的原始依据，比二手资料更可靠"
+    },
+    {
+      "title": "REP 103 / REP 105",
+      "url": "https://ros.org/reps/rep-0103.html",
+      "desc": "坐标系与单位约定、map/odom/base_link 的 tf 树约定，工程踩坑必读"
+    },
+    {
+      "title": "ros2-shortcuts",
+      "url": "https://github.com/loonglee2025/ros2",
+      "desc": "ROS 2 的 Oh My Zsh 插件：CLI 别名与函数，提升终端效率"
+    },
+    {
+      "title": "ros2-turtlesim-projects",
+      "url": "https://github.com/loonglee2025/ros2-turtlesim-projects",
+      "desc": "小海龟系列实战代码（Jazzy），配套公众号《ROS 2 入门实战》"
+    }
+  ]
+}

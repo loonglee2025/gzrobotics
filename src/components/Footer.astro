@@ -1,0 +1,19 @@
+---
+import site from '../data/site.json';
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="wrap rows">
+    <div>
+      <strong style="color:var(--text)">{site.nameZh}（{site.name}）</strong>
+      — {site.nameEn} · <span class="muted">{site.domain.replace('https://', '')}</span>
+    </div>
+    <div class="disclaimer">
+      ROSGZ 是独立的地方性技术社区组织，与 Open Robotics / OSRF 无隶属关系，
+      亦不代表其官方立场。「ROS」是 Open Robotics 的注册商标。本站所有活动与内容均由社区志愿者组织，
+      文中观点仅代表分享者个人。
+    </div>
+    <div class="muted">© {year} ROSGZ Community · 内容以 CC BY 4.0 方式共享（另有标注者除外）</div>
+  </div>
+</footer>

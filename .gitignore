@@ -1,0 +1,17 @@
+# 依赖
+node_modules/
+.pnpm-store/
+
+# 构建产物
+dist/
+.astro/
+
+# 环境与本地配置
+.env
+.env.*
+!.env.example
+.DS_Store
+
+# 日志
+npm-debug.log*
+yarn-error.log*

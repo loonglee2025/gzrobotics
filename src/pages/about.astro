@@ -1,0 +1,71 @@
+---
+import Base from '../layouts/Base.astro';
+import site from '../data/site.json';
+---
+
+<Base title="关于" description="ROSGZ（ROS 广州）是什么、做什么、不做什么，以及社群的组织方式与身份声明。">
+  <div class="page-head">
+    <h1>关于 ROS 广州</h1>
+    <p>
+      {site.nameZh}（{site.name}，{site.nameEn}）是面向广州及大湾区的 ROS 2 / 机器人技术交流社群。
+    </p>
+  </div>
+
+  <h2>一句话</h2>
+  <p>
+    一群在广州做机器人软件的人，每月聚一次，把真实项目里的工程问题摊开讲——包括失败的尝试。
+  </p>
+
+  <h2>我们做什么</h2>
+  <ul class="plain-list">
+    <li>
+      <div class="title">月度技术分享</div>
+      <div class="desc">单主题深讲，通常 40 分钟分享 + 20 分钟提问；鼓励现场演示而非纯 PPT。</div>
+    </li>
+    <li>
+      <div class="title">动手工作坊</div>
+      <div class="desc">带电脑来的实操场：环境搭建、节点调试、仿真到真机的最小闭环。</div>
+    </li>
+    <li>
+      <div class="title">项目复盘</div>
+      <div class="desc">把上线或翻车的项目拆开看：设计取舍、时间成本、后期维护代价。</div>
+    </li>
+    <li>
+      <div class="title">内容沉淀</div>
+      <div class="desc">分享材料、可复现步骤与踩坑记录整理进公开仓库，配套技术周报持续更新。</div>
+    </li>
+  </ul>
+
+  <h2>我们不做什么</h2>
+  <ul class="plain-list">
+    <li>
+      <div class="title">不办收费培训</div>
+      <div class="desc">活动以免费或成本分摊为原则；不做课程销售，不向参会者推销工具与服务。</div>
+    </li>
+    <li>
+      <div class="title">不做招聘中介</div>
+      <div class="desc">群内可以发布岗位信息，但主办方不介入撮合、不收费用、不做背书。</div>
+    </li>
+    <li>
+      <div class="title">不接受影响内容的中介</div>
+      <div class="desc">如涉及场地或茶歇赞助，须在活动现场与页面明确披露赞助方，赞助不影响选题与讲者选择。</div>
+    </li>
+  </ul>
+
+  <h2>组织方式</h2>
+  <p class="muted">
+    组织者信息整理中。当前以志愿者协作方式运营：内容与排期由核心志愿者共同决定，重要决定在群内公示。
+  </p>
+
+  <h2>身份与商标说明</h2>
+  <div class="notice">
+    ROSGZ 是独立的地方性社区组织，<strong>与 Open Robotics / OSRF 无隶属关系</strong>，不代表其官方立场。
+    「ROS」为 Open Robotics 的注册商标；本站仅在城市技术社群的名义下使用该名称，
+    不使用官方 logo 或其变体，也不使用「官方」「中国区」等表述。
+  </div>
+
+  <h2>联系方式</h2>
+  <p class="muted">
+    入群与联络方式见 <a href="/join">加入社群</a> 页面。合作、场地与分享提议请通过该页面所列渠道联系。
+  </p>
+</Base>

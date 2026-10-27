@@ -1,0 +1,17 @@
+{
+  "_note": "活动数据仍需填入真实信息（时间/地点/议程以主办方发布为准）。本文件当前为空数组，活动页会自动展示占位说明，不会渲染任何虚构活动。",
+  "_schema": {
+    "title": "活动标题",
+    "date": "YYYY-MM-DD（开始日期）",
+    "endDate": "YYYY-MM-DD（可选，多日活动）",
+    "city": "广州",
+    "venue": "场地名称或线上",
+    "mode": "offline | online | hybrid",
+    "status": "upcoming | past",
+    "summary": "一句话介绍",
+    "signupUrl": "报名链接（第三方表单，站点不收集个人信息）",
+    "recapUrl": "回顾文章/相册链接（可选）",
+    "tags": ["ROS 2", "SLAM"]
+  },
+  "events": []
+}

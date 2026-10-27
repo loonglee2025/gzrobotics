@@ -1,0 +1,93 @@
+---
+import Base from '../layouts/Base.astro';
+import site from '../data/site.json';
+import eventsData from '../data/events.json';
+
+const events = eventsData.events ?? [];
+const upcoming = events.filter((e) => e.status === 'upcoming');
+const latestEvent = upcoming[0];
+const totalEvents = events.length;
+---
+
+<Base>
+  <section class="hero">
+    <p class="muted" style="margin:0;font-family:var(--mono);font-size:.82rem;letter-spacing:.1em">
+      ROS GUANGZHOU USER GROUP
+    </p>
+    <h1>在广州，把 <span class="accent">ROS 2</span> 做成能跑起来的工程</h1>
+    <p class="lead">
+      {site.tagline}。月度线下技术分享、动手工作坊与项目复盘——讲清版本、讲清依赖、讲清现场为什么会崩。
+    </p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="/join">加入社群</a>
+      <a class="btn btn-ghost" href="/events">查看活动</a>
+      <a class="btn btn-ghost" href="/weekly">读技术周报</a>
+    </div>
+  </section>
+
+  <div class="grid">
+    <div class="card">
+      <h3>线下技术分享</h3>
+      <p>
+        每月一场，主题围绕 ROS 2 工程实践：实时性调优、DDS 通信、tf2 与坐标约定、导航栈落地、真机调试。
+      </p>
+      <span class="meta">{totalEvents > 0 ? `共 ${totalEvents} 场记录` : '活动排期整理中'}</span>
+    </div>
+    <div class="card">
+      <h3>技术周报双频道</h3>
+      <p>
+        ROS 2 技术周报（每周一）与机器人研究周报（每周五），追踪上游变更、发布节奏与前沿论文。
+      </p>
+      <span class="meta">来自公开仓库</span>
+    </div>
+    <div class="card">
+      <h3>入门与踩坑清单</h3>
+      <p>
+        从环境搭建到第一个节点，再到 REP 103/105 坐标约定：把新同学最容易卡住的地方写成可执行的路径。
+      </p>
+      <span class="meta">持续补充</span>
+    </div>
+  </div>
+
+  {
+    latestEvent && (
+      <section>
+        <h2>下一次活动</h2>
+        <div class="event">
+          <div class="date">{latestEvent.date}</div>
+          <div>
+            <div class="title" style="font-weight:600">{latestEvent.title}</div>
+            <p class="muted" style="margin:.3rem 0 0;font-size:.93rem">{latestEvent.summary}</p>
+            {latestEvent.signupUrl && (
+              <p style="margin:.6rem 0 0">
+                <a class="btn btn-primary" href={latestEvent.signupUrl}>报名</a>
+              </p>
+            )}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <h2>这个站点做什么</h2>
+  <ul class="plain-list">
+    <li>
+      <div class="title">把「广州有人在做 ROS」变成看得见的事实</div>
+      <div class="desc">记录活动、参与者和分享主题，让新同学知道本地可以找到谁、聊什么。</div>
+    </li>
+    <li>
+      <div class="title">把技术内容沉淀下来</div>
+      <div class="desc">分享的要点、踩过的坑、可复现的步骤，进仓库、进周报，而不是消失在群聊里。</div>
+    </li>
+    <li>
+      <div class="title">降低第一次参加的门槛</div>
+      <div class="desc">不需要是专家：学生、转行者、硬件工程师、做产品的同学都可以来听、来问。</div>
+    </li>
+  </ul>
+
+  <div class="notice">
+    <strong>关于本社区的身份：</strong>ROSGZ 是由志愿者自发组织的<strong>地方性技术交流社群</strong>，
+    与 Open Robotics / OSRF 无隶属关系，也不以任何官方名义活动。
+    本站定位为纯技术交流：不做商业培训、不做招聘中介、不投放广告。
+  </div>
+</Base>
