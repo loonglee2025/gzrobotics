@@ -1,5 +1,6 @@
 ---
 import site from '../data/site.json';
+import { url } from '../lib/url';
 const year = new Date().getFullYear();
 ---
 
@@ -15,8 +16,8 @@ const year = new Date().getFullYear();
       文中观点仅代表分享者个人。
     </div>
     <div class="muted">
-      <a href="/about">关于</a> · <a href="/manifesto">社区宣言</a> ·
-      <a href="/code-of-conduct">行为准则</a> · <a href="/join">加入社区</a>
+      <a href={url('/about')}>关于</a> · <a href={url('/manifesto')}>社区宣言</a> ·
+      <a href={url('/code-of-conduct')}>行为准则</a> · <a href={url('/join')}>加入社区</a>
     </div>
     <div class="muted">© {year} ROSGZ Community · 内容以 CC BY 4.0 方式共享（另有标注者除外）</div>
   </div>

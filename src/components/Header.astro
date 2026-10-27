@@ -1,29 +1,36 @@
 ---
-const path = Astro.url.pathname.replace(/\/+$/, '') || '/';
+import { url, basePath } from '../lib/url';
+
+// 当前路径去掉部署基路径（GitHub Pages 子路径下会带 /rosgz 前缀）
+const rawPath = Astro.url.pathname.replace(/\/+$/, '') || '/';
+const path =
+  basePath && rawPath.startsWith(basePath)
+    ? rawPath.slice(basePath.length) || '/'
+    : rawPath;
 
 const nav = [
-  { href: '/', label: '首页' },
-  { href: '/about', label: '关于' },
-  { href: '/manifesto', label: '宣言' },
-  { href: '/events', label: '活动' },
-  { href: '/weekly', label: '周报' },
-  { href: '/resources', label: '资源' },
-  { href: '/join', label: '加入' },
+  { path: '/', label: '首页' },
+  { path: '/about', label: '关于' },
+  { path: '/manifesto', label: '宣言' },
+  { path: '/events', label: '活动' },
+  { path: '/weekly', label: '周报' },
+  { path: '/resources', label: '资源' },
+  { path: '/join', label: '加入' },
 ];
 
-const isActive = (href) => (href === '/' ? path === '/' : path.startsWith(href));
+const isActive = (item) => (item.path === '/' ? path === '/' : path.startsWith(item.path));
 ---
 
 <header class="site-header">
   <div class="wrap">
-    <a class="brand" href="/">
+    <a class="brand" href={url('/')}>
       <span class="mark">ROSGZ</span>
       <span class="zh">ROS 广州</span>
     </a>
     <nav class="nav" aria-label="主导航">
       {
         nav.map((item) => (
-          <a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>
+          <a href={url(item.path)} aria-current={isActive(item) ? 'page' : undefined}>
             {item.label}
           </a>
         ))

@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import site from '../data/site.json';
+import { url } from '../lib/url';
 
 const links = site.links;
 const wechatOfficial = links.wechatOfficial;
@@ -34,7 +35,7 @@ const formats = site.activityFormats;
         wechatOfficial.qrImage ? (
           <p style="margin-top:.9rem">
             <span class="qr">
-              <img src={wechatOfficial.qrImage} alt={`${wechatOfficial.label} 二维码`} loading="lazy" />
+              <img src={url(wechatOfficial.qrImage)} alt={`${wechatOfficial.label} 二维码`} loading="lazy" />
             </span>
           </p>
         ) : (
@@ -50,7 +51,7 @@ const formats = site.activityFormats;
         wechatGroup.qrImage ? (
           <p style="margin-top:.9rem">
             <span class="qr">
-              <img src={wechatGroup.qrImage} alt="微信群二维码" loading="lazy" />
+              <img src={url(wechatGroup.qrImage)} alt="微信群二维码" loading="lazy" />
             </span>
           </p>
         ) : (
@@ -101,6 +102,6 @@ const formats = site.activityFormats;
   <div class="notice">
     <strong>隐私说明：</strong>本站为纯静态页面，不收集、不存储任何个人信息，也不使用第三方追踪统计。
     活动报名通过第三方表单进行，提交前请阅读该表单的隐私说明。
-    参与社区活动请先阅读 <a href="/code-of-conduct">社区行为准则</a>。
+    参与社区活动请先阅读 <a href={url('/code-of-conduct')}>社区行为准则</a>。
   </div>
 </Base>

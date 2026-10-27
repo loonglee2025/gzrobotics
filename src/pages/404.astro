@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import { url } from '../lib/url';
 ---
 
 <Base title="页面不存在" description="请求的页面不存在。">
@@ -8,10 +9,10 @@ import Base from '../layouts/Base.astro';
     <p>这个地址没有内容，可能是链接过期或页面已移动。</p>
   </div>
   <p>
-    <a class="btn btn-primary" href="/">返回首页</a>
+    <a class="btn btn-primary" href={url('/')}>返回首页</a>
   </p>
   <p class="muted" style="margin-top:1.2rem">
-    如果你是从社区分享的链接进来的，可以回到 <a href="/events">活动</a> 或
-    <a href="/resources">资源</a> 页面查找。
+    如果你是从社区分享的链接进来的，可以回到 <a href={url('/events')}>活动</a> 或
+    <a href={url('/resources')}>资源</a> 页面查找。
   </p>
 </Base>

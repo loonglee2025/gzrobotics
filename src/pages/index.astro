@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import site from '../data/site.json';
 import eventsData from '../data/events.json';
+import { url } from '../lib/url';
 
 const events = eventsData.events ?? [];
 const upcoming = events.filter((e) => e.status === 'upcoming');
@@ -22,9 +23,9 @@ const formats = site.activityFormats;
       AI 感知、具身智能的开发者、研究者与创业者——通过线上交流与线下活动，推动技术分享、开源协作与工程实践。
     </p>
     <div class="cta-row">
-      <a class="btn btn-primary" href="/join">加入社区</a>
-      <a class="btn btn-ghost" href="/manifesto">读社区宣言</a>
-      <a class="btn btn-ghost" href="/weekly">技术周报</a>
+      <a class="btn btn-primary" href={url('/join')}>加入社区</a>
+      <a class="btn btn-ghost" href={url('/manifesto')}>读社区宣言</a>
+      <a class="btn btn-ghost" href={url('/weekly')}>技术周报</a>
     </div>
   </section>
 
@@ -77,7 +78,7 @@ const formats = site.activityFormats;
     }
   </div>
   <p style="margin-top:1rem">
-    <a href="/manifesto">完整社区宣言 →</a>
+    <a href={url('/manifesto')}>完整社区宣言 →</a>
   </p>
 
   <h2>社区活动形式</h2>

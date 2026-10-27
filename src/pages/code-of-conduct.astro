@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import { url } from '../lib/url';
 ---
 
 <Base title="行为准则" description="ROSGZ 社区行为准则：线下活动与线上群聊的共同约定。">
@@ -45,7 +46,7 @@ import Base from '../layouts/Base.astro';
 
   <h2>举报与处理</h2>
   <p>
-    遇到违反上述准则的情况，请通过 <a href="/join">加入社区</a> 页面所列入群渠道，
+    遇到违反上述准则的情况，请通过 <a href={url('/join')}>加入社区</a> 页面所列入群渠道，
     直接联系组织者或任一志愿者，并尽量提供时间、场景与相关证据。
   </p>
   <ul class="plain-list">

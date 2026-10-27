@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import site from '../data/site.json';
+import { url } from '../lib/url';
 
 const m = site.manifesto;
 ---
@@ -44,8 +45,8 @@ const m = site.manifesto;
     欢迎加入 ROS Guangzhou，一起构建一个真正属于机器人开发者的城市社区。
   </p>
   <p style="margin-top:1.2rem">
-    <a class="btn btn-primary" href="/join">加入社区</a>
-    <a class="btn btn-ghost" href="/about" style="margin-left:.6rem">了解社区详情</a>
+    <a class="btn btn-primary" href={url('/join')}>加入社区</a>
+    <a class="btn btn-ghost" href={url('/about')} style="margin-left:.6rem">了解社区详情</a>
   </p>
 
   <div class="notice" style="margin-top:2rem">

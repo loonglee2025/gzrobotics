@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import site from '../data/site.json';
+import { url } from '../lib/url';
 
 const areas = site.technologyAreas;
 const formats = site.activityFormats;
@@ -91,7 +92,7 @@ const formats = site.activityFormats;
     「{site.manifesto.belief}」——这是社区的基本判断，也是我们组织活动的出发点。
     我们鼓励<strong>开放、实践、开源精神、长期主义</strong>。
   </p>
-  <p><a href="/manifesto">阅读完整社区宣言 →</a></p>
+  <p><a href={url('/manifesto')}>阅读完整社区宣言 →</a></p>
 
   <h2>身份与商标说明</h2>
   <div class="notice">
@@ -109,6 +110,6 @@ const formats = site.activityFormats;
 
   <h2>联系方式</h2>
   <p class="muted">
-    入群与联络方式见 <a href="/join">加入社区</a> 页面。合作、场地与分享提议请通过该页面所列渠道联系。
+    入群与联络方式见 <a href={url('/join')}>加入社区</a> 页面。合作、场地与分享提议请通过该页面所列渠道联系。
   </p>
 </Base>
