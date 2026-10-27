@@ -93,8 +93,8 @@
     },
     "github": {
       "label": "GitHub",
-      "url": "",
-      "note": "TO-DO：确定仓库归属后填入（见 README 拍板项 2）"
+      "url": "https://github.com/loonglee2025/rosgz",
+      "note": "站点源码仓库，接受内容勘误与改进 PR"
     },
     "email": {
       "label": "联络邮箱",

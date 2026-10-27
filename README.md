@@ -21,9 +21,11 @@ ROS Guangzhou 的官方网站：静态站点，零后端，内容全部 Git 化�
 
 待办（未阻塞开发，阻塞「完整上线」）：
 
-- [ ] 拍板项 2：仓库归属（新建 GitHub Org `rosgz` 或先 `loonglee2025/rosgz`）→ 决定后填写 `site.json` 的 `links.github.url`
+- [x] 拍板项 2：仓库归属 → 已定 `loonglee2025/rosgz`（2026-10-28 创建并首推）；
+      若日后需迁到 GitHub Organization `rosgz`，用 GitHub 的 Transfer repository 保 issue/star
 - [ ] 拍板项 4：是否首版中英双语（当前为中文单语，i18n 结构未引入）
-- [ ] 「ROS 广州」既有描述出处（用于校准 About / 首页文案）
+- [x] 「ROS 广州」既有描述出处 → 已定位：公众号 WayToRobots《ROS Guangzhou 社区介绍》
+      （检索 2026-10-28，原文归档于 `docs/source/`），站点文案已按其口径重构
 - [ ] 真实活动数据（`src/data/events.json` 现为空数组，页面显示占位说明，**不含任何虚构活动**）
 - [ ] 微信群二维码 / 域名邮箱（`site.json` 中标注 TO-DO）
 - [ ] M2：周报自动聚合（构建时拉取 `ros2-weekly-digest` / `robot-research-weekly` 的 `reports/*.md`）
