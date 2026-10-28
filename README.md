@@ -13,7 +13,7 @@ ROS Guangzhou 的官方网站：静态站点，零后端，内容全部 Git 化�
 
 | 用途 | 地址 | 说明 |
 |---|---|---|
-| **正式站** | https://gzrobotics.org | GitHub Pages + 自定义域（CNAME），根路径；域名 2026-10-28 注册于 NameCheap |
+| **正式站（已上线）** | https://gzrobotics.org | GitHub Pages + 自定义域；TLS 由 Let's Encrypt 自动签发（有效期至 2027-01-26），已开启 Enforce HTTPS；`www` 301 → apex |
 | 备用形态 | GitHub Pages 项目页（`/gzrobotics/` 子路径） | 仅在未绑定自定义域时使用，需 `DEPLOY_TARGET=gh-pages` 构建 |
 
 ## 两种构建模式

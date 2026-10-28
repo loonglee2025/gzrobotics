@@ -63,7 +63,32 @@ curl -sI https://www.gzrobotics.org/ # 期望 301 → https://gzrobotics.org/
 curl -s https://gzrobotics.org/ | grep -o '<link rel="canonical"[^>]*>'
 ```
 
-### 0.5 已知限制
+### 0.5 实战记录：首次绑定为什么等了一小时（2026-10-28）
+
+按 GitHub 官方文档《使用 HTTPS 保护 GitHub Pages 服务》逐条比对后确认：**配置没有写错，是两个因素叠加**。
+
+| 文档规则（原文要点） | 当时的实际情况 | 影响 |
+|---|---|---|
+| 「由于额外的 DNS 记录，或某些记录未指向 GitHub Pages 的 IP 地址…可能会导致无法生成 HTTPS 证书」 | NameCheap 停放页遗留的 `A @ 162.255.119.77` **未删除**，与 4 条 GitHub IP 并存 | DNS 检查不通过 → 证书任务迟迟不入队 |
+| 「配置自定义域后，站点最多可能需要 1 小时才能通过 HTTPS 访问」 | 03:20 设 cname → 04:25 证书签发（`notBefore` 04:25:22 UTC），约 25 分钟入队 + 总计 65 分钟 | 属正常等待区间，不是故障 |
+| 「如果几分钟未完成，尝试点击自定义域名旁的『删除』，重新键入并保存，会取消并重启配置」 | 期间用 `PUT /repos/{o}/{r}/pages {cname}` 触发复检（返回 204），但 `cert_state` 恒为 `null` | **API 复检 ≠ Remove+Save**，无法真正重启队列 |
+| CAA 记录必须含 `letsencrypt.org` | 本域无任何 CAA 记录 | 不构成问题（无 CAA 即放行） |
+| 从自定义 GitHub Actions 工作流发布时，CNAME 文件被忽略且不需要 | 我们仍写入 `dist/CNAME` | 无害，只是非必需 |
+| 启用 HTTPS 后仍走 `http://` 的资源会造成混合内容 | 全站产物 `grep 'http://'` 结果为 **0** | 无混合内容问题 |
+
+**关键动作是删除那条停放 A 记录**；删除后约 30 分钟证书即签发：
+
+```
+subject = CN = gzrobotics.org
+issuer  = Let's Encrypt (YR1)
+SAN     = DNS:gzrobotics.org, DNS:www.gzrobotics.org
+有效    = 2026-10-28 → 2027-01-26
+```
+
+经验：若设置 cname 后 15 分钟内 `https_certificate` 仍为 `null`，**直接去 Settings → Pages 点 Remove 再重新 Save**（重置配置流程），
+比反复调 API 有效；同时必须先确认 apex 只有 GitHub 的 4 条 A 记录。
+
+### 0.6 已知限制
 
 - GitHub Pages 在中国大陆访问不稳定（时延/丢包随网络变化）。若社群反馈明显，再按第 6 节评估迁移 Cloudflare 或香港节点；
   代码侧无需改动：`DEPLOY_TARGET` 不设即根路径构建，Cloudflare Pages 直接复用同一产物。
