@@ -1,7 +1,7 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 
-// 站点正式域名（拍板项 1）：https://rosgz.org
+// 站点正式域名（拍板项 1）：https://gzrobotics.org
 // 部署到 Cloudflare Pages / GitHub Pages 时保持 site 一致，
 // 用于生成 sitemap、canonical 与 og:url。
 //
@@ -10,7 +10,7 @@ import { defineConfig } from 'astro/config';
 const ghPages = process.env.DEPLOY_TARGET === 'gh-pages';
 
 export default defineConfig({
-  site: ghPages ? 'https://loonglee2025.github.io' : 'https://rosgz.org',
+  site: ghPages ? 'https://loonglee2025.github.io' : 'https://gzrobotics.org',
   base: ghPages ? '/rosgz' : '/',
   // 中英双语：中文为默认语言且不带前缀（/about），英文在 /en 下（/en/about）
   i18n: {

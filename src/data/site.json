@@ -2,7 +2,7 @@
   "name": "ROSGZ",
   "nameZh": "ROS 广州",
   "nameEn": "ROS Guangzhou",
-  "domain": "https://rosgz.org",
+  "domain": "https://gzrobotics.org",
   "tagline": "连接广州的机器人开发者，推动机器人技术交流与创新",
   "description": "ROS Guangzhou（ROS 广州）是一个面向机器人开发者的开放技术社区，连接在广州及周边地区从事机器人、自动驾驶、AI 感知、具身智能等相关领域的开发者、研究者与创业者。社区以 ROS / ROS 2 为技术基础，通过线上交流与线下活动，推动技术分享、开源协作与工程实践。",
   "vision": "连接广州的机器人开发者，推动机器人技术交流与创新。ROS 已成为全球机器人开发的重要基础设施，但在很多城市，本地开发者之间的连接仍然较少。ROS Guangzhou 希望构建一个长期、开放、技术导向的社区，让机器人开发者能够分享经验、交流技术、展示项目、发现合作机会——让广州成为机器人技术交流最活跃的城市之一。",
@@ -99,7 +99,7 @@
     "email": {
       "label": "联络邮箱",
       "url": "",
-      "note": "TO-DO：建议使用域名邮箱，如 hello@rosgz.org"
+      "note": "TO-DO：建议使用域名邮箱，如 hello@gzrobotics.org"
     }
   },
   "weeklyDigests": [

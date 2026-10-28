@@ -1,6 +1,9 @@
 # 部署与域名绑定手册（ROSGZ）
 
-目标域名：`rosgz.org`（主域）+ `www.rosgz.org`（301 到主域），保护性域 `rosgz.com`。
+目标域名：`gzrobotics.org`（主域，2026-10-28 注册于 NameCheap）+ `www.gzrobotics.org`（301 到主域）。
+
+保护性域名现状（RDAP 查询于 2026-10-28）：`gzrobotics.com` 已被第三方持有（2014-12-21 注册，阿里云/HiChina），
+无法注册；`gzrobotics.net` / `gzrobotics.io` / `gzrobotics.xyz` 未注册（如需品牌保护可另行注册，注册前复核）。
 托管：Cloudflare Pages（Git 集成）。以下步骤中标注「你操作」的环节需要账号权限，其余可由我执行或协助核验。
 
 > 状态核实说明：域名可用性由 RDAP 于 2026-10-28 查询确认（404 = 未注册）。
@@ -20,7 +23,7 @@
 - 工作流：`.github/workflows/deploy-pages.yml`（push 到 `main` 自动构建部署，`workflow_dispatch` 可手动触发）
 - Pages 源已由 API 设为 **GitHub Actions**（`build_type: workflow`），无需在网页端再选分支
 - 构建参数：`DEPLOY_TARGET=gh-pages` → `base=/rosgz`，内部链接自动加前缀（`src/lib/url.ts`）
-- SEO 处理：预览站带 `<meta name="robots" content="noindex, nofollow">`，canonical 仍指向 `https://rosgz.org`，
+- SEO 处理：预览站带 `<meta name="robots" content="noindex, nofollow">`，canonical 仍指向 `https://gzrobotics.org`，
   避免被搜索引擎与正式站判为重复内容
 - 已知限制：GitHub Pages 在中国大陆访问不稳定（时延/丢包随网络变化），**仅作预览**；
   正式发布仍按下方 Cloudflare Pages + 自定义域执行，届时可把本工作流降级为可选或删除
@@ -34,7 +37,9 @@ curl -s -o /dev/null -w "%{http_code}\n" https://loonglee2025.github.io/rosgz/ab
 
 ## 1. 注册域名（你操作）
 
-推荐组合：主域 `rosgz.org` + 保护域 `rosgz.com`（301 到主域）。
+推荐组合：主域 `gzrobotics.org`（**已注册**，2026-10-28 / NameCheap）。
+`gzrobotics.com` 已被他人持有，无法注册；若需品牌保护，`gzrobotics.net` / `gzrobotics.io` 目前未注册（注册前复核），
+注册后在 Cloudflare 建站并 301 到主域即可。
 
 | 项 | 建议 |
 |---|---|
@@ -45,14 +50,14 @@ curl -s -o /dev/null -w "%{http_code}\n" https://loonglee2025.github.io/rosgz/ab
 
 ## 2. Cloudflare 托管 DNS
 
-1. 你操作：Cloudflare 控制台 → Add a site → 输入 `rosgz.org` → 选 Free 计划。
+1. 你操作：Cloudflare 控制台 → Add a site → 输入 `gzrobotics.org` → 选 Free 计划。
 2. Cloudflare 会给两个 NS 名称（形如 `xxx.ns.cloudflare.com`）。
 3. 你操作：到注册商把域名 NS 改为这两个地址。
 4. 生效核验（我可执行）：
 
 ```bash
-dig +short NS rosgz.org            # 应返回两条 *.ns.cloudflare.com
-dig +short SOA rosgz.org
+dig +short NS gzrobotics.org            # 应返回两条 *.ns.cloudflare.com
+dig +short SOA gzrobotics.org
 ```
 
 > NS 传播通常数分钟到数小时；未生效前 Pages 的自定义域验证会失败，属正常现象。
@@ -74,18 +79,19 @@ dig +short SOA rosgz.org
 
 ## 4. 绑定自定义域名
 
-1. 你操作：Pages 项目 → Custom domains → 添加 `rosgz.org`（apex）与 `www.rosgz.org`。
-   - `rosgz.org` 在 Cloudflare DNS 中由 Pages 自动创建 CNAME-flattening 记录；
+1. 你操作：Pages 项目 → Custom domains → 添加 `gzrobotics.org`（apex）与 `www.gzrobotics.org`。
+   - `gzrobotics.org` 在 Cloudflare DNS 中由 Pages 自动创建 CNAME-flattening 记录；
    - `www` 创建普通 CNAME 指向 `<project>.pages.dev`。
 2. HTTPS：Cloudflare 自动签发证书（Universal SSL），无需手动申请。
-3. 强制主域：Rules → Redirect Rules 添加一条：`www.rosgz.org/*` → `https://rosgz.org/$1`，301。
-4. `rosgz.com` 的 301：在 `rosgz.com` 站点内同样建 Redirect Rule 指向 `https://rosgz.org/$1`（或用 Bulk Redirects）。
+3. 强制主域：Rules → Redirect Rules 添加一条：`www.gzrobotics.org/*` → `https://gzrobotics.org/$1`，301。
+4. 其他后缀的 301（可选）：若日后注册或取得 `gzrobotics.net` / `.io`，在其 Cloudflare 站点内同样建
+   Redirect Rule 指向 `https://gzrobotics.org/$1`（或用 Bulk Redirects）。未持有前跳过此步。
 5. 生效核验（我可执行）：
 
 ```bash
-curl -sSI https://rosgz.org | head -20            # 期望 200 + server: cloudflare
-curl -sSI https://www.rosgz.org | head -5         # 期望 301 → https://rosgz.org/
-dig +short rosgz.org                              # Pages 记录已生效
+curl -sSI https://gzrobotics.org | head -20            # 期望 200 + server: cloudflare
+curl -sSI https://www.gzrobotics.org | head -5         # 期望 301 → https://gzrobotics.org/
+dig +short gzrobotics.org                              # Pages 记录已生效
 ```
 
 ## 5. 回滚与故障处理
@@ -108,9 +114,9 @@ Cloudflare 免费计划在大陆的访问质量不稳定（时延与丢包随网
 
 ## 7. 上线检查清单
 
-- [ ] `https://rosgz.org` 返回 200，证书有效
-- [ ] `https://www.rosgz.org` 301 到主域
-- [ ] `https://rosgz.org/nonexistent` 返回 404 页（非跳首页）
+- [ ] `https://gzrobotics.org` 返回 200，证书有效
+- [ ] `https://www.gzrobotics.org` 301 到主域
+- [ ] `https://gzrobotics.org/nonexistent` 返回 404 页（非跳首页）
 - [ ] `/robots.txt`、`/favicon.svg` 可访问
 - [ ] 移动端（375px 宽）导航不折行错位、二维码可长按识别
 - [ ] 页脚非官方/商标声明存在

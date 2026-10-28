@@ -2,7 +2,7 @@
 
 ROS Guangzhou 的官方网站：静态站点，零后端，内容全部 Git 化。
 
-- 正式域名（已定）：`https://rosgz.org`（保护性注册 `rosgz.com` 并 301 到主域）
+- 正式域名（已定）：`https://gzrobotics.org`（2026-10-28 注册于 NameCheap，到期 2027-10-28）；`gzrobotics.com` 已被第三方持有（2014 年注册，阿里云），不可注册；如需品牌保护，`.net` / `.io` / `.xyz` 当前 RDAP 显示未注册（注册前复核）
 - 站点定位（已定，依据社区介绍原文）：**面向机器人开发者的开放技术社区**——以 ROS / ROS 2 为技术基础，连接广州及周边从事机器人、自动驾驶、AI 感知、具身智能的开发者、研究者与创业者；不做付费培训、招聘中介与广告投放
 - 内容来源：公众号 WayToRobots《ROS Guangzhou 社区介绍》（检索日期 2026-10-28，见 `src/data/site.json` 的 `source` 字段）
 - 技术栈：Astro（纯静态）、原生 CSS（无 UI 框架依赖）、数据用 JSON
@@ -14,13 +14,13 @@ ROS Guangzhou 的官方网站：静态站点，零后端，内容全部 Git 化�
 | 用途 | 地址 | 说明 |
 |---|---|---|
 | 预览站（已上线） | https://loonglee2025.github.io/rosgz/ | GitHub Pages 项目页，子路径 `/rosgz`；`noindex`，仅作预览 |
-| 正式站（待域名注册） | https://rosgz.org | Cloudflare Pages，根路径；接入步骤见 `docs/DEPLOY.md` |
+| 正式站（待域名注册） | https://gzrobotics.org | Cloudflare Pages，根路径；接入步骤见 `docs/DEPLOY.md` |
 
 ## 两种构建模式
 
 ```bash
-npm run build                       # 正式站：base=/，canonical=rosgz.org
-DEPLOY_TARGET=gh-pages npm run build  # 预览站：base=/rosgz，canonical 仍指向 rosgz.org 且带 noindex
+npm run build                       # 正式站：base=/，canonical=gzrobotics.org
+DEPLOY_TARGET=gh-pages npm run build  # 预览站：base=/rosgz，canonical 仍指向 gzrobotics.org 且带 noindex
 ```
 
 内部链接一律通过 `src/lib/url.ts` 的 `url('/path')` 生成，**不要硬编码 `href="/path"`**——
@@ -87,7 +87,7 @@ CI 使用 `npm ci`，保证与 lock 一致。
 
 ```
 rosgz/
-├─ astro.config.mjs        # site: https://rosgz.org
+├─ astro.config.mjs        # site: https://gzrobotics.org
 ├─ public/                 # favicon.svg、robots.txt、公众号二维码
 ├─ src/
 │  ├─ components/          # Header / Footer

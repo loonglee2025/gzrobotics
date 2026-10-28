@@ -1,7 +1,7 @@
 name: Deploy Pages (preview)
 
 # 部署到 GitHub Pages 作为预览站：https://loonglee2025.github.io/rosgz/
-# 正式站仍是 rosgz.org（Cloudflare Pages），此处仅用 DEPLOY_TARGET=gh-pages 走子路径构建。
+# 正式站仍是 gzrobotics.org（Cloudflare Pages），此处仅用 DEPLOY_TARGET=gh-pages 走子路径构建。
 on:
   push:
     branches: [main]
