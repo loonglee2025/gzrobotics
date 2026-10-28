@@ -8,27 +8,27 @@ const lang = langOf(stripBase(Astro.url.pathname));
 const site = lang === 'zh' ? siteZh : siteEn;
 const year = new Date().getFullYear();
 const brand =
-  lang === 'zh' ? `${site.nameZh}（${site.name}）` : `${site.name} · ${site.nameEn}`;
+  lang === 'zh' ? `${site.name} · ${site.nameZh}` : `${site.name} · ${site.nameEn}`;
 
 const copy =
   lang === 'zh'
     ? {
         disclaimer:
-          'ROSGZ 是独立的地方性社区组织，与 Open Robotics / OSRF 无隶属关系，亦不代表其官方立场。「ROS」是 Open Robotics 的注册商标。本站所有活动与内容均由社区志愿者组织，文中观点仅代表分享者个人。',
+          'GZRobotics（ROS 广州）是独立的地方性社区组织，与 Open Robotics / OSRF 无隶属关系，亦不代表其官方立场。「ROS」是 Open Robotics 的注册商标。本站所有活动与内容均由社区志愿者组织，文中观点仅代表分享者个人。',
         about: '关于',
         manifesto: '社区宣言',
         coc: '行为准则',
         join: '加入社区',
-        rights: `© ${year} ROSGZ Community · 内容以 CC BY 4.0 方式共享（另有标注者除外）`,
+        rights: `© ${year} GZRobotics Community · 内容以 CC BY 4.0 方式共享（另有标注者除外）`,
       }
     : {
         disclaimer:
-          'ROSGZ is an independent local community organization, with no affiliation to Open Robotics / OSRF and no authority to speak for them. "ROS" is a registered trademark of Open Robotics. All events and content are organized by community volunteers; opinions expressed belong to the individual speakers.',
+          'GZRobotics is an independent local community organization, with no affiliation to Open Robotics / OSRF and no authority to speak for them. "ROS" is a registered trademark of Open Robotics. All events and content are organized by community volunteers; opinions expressed belong to the individual speakers.',
         about: 'About',
         manifesto: 'Manifesto',
         coc: 'Code of Conduct',
         join: 'Join',
-        rights: `© ${year} ROSGZ Community · Content shared under CC BY 4.0 unless otherwise noted`,
+        rights: `© ${year} GZRobotics Community · Content shared under CC BY 4.0 unless otherwise noted`,
       };
 ---
 

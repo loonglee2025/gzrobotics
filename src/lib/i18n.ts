@@ -6,7 +6,7 @@ export type Lang = 'zh' | 'en';
 
 export const locales: Lang[] = ['zh', 'en'];
 
-/** 去掉部署基路径后的路径，例如 /rosgz/en/about → /en/about */
+/** 去掉部署基路径后的路径，例如 /gzrobotics/en/about → /en/about */
 export function stripBase(fullPathname: string): string {
   const noSlash = fullPathname.replace(/\/+$/, '') || '/';
   if (basePath && noSlash.startsWith(basePath)) {

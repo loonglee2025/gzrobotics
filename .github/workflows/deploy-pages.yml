@@ -1,7 +1,9 @@
-name: Deploy Pages (preview)
+name: Deploy Pages (gzrobotics.org)
 
-# 部署到 GitHub Pages 作为预览站：https://loonglee2025.github.io/rosgz/
-# 正式站仍是 gzrobotics.org（Cloudflare Pages），此处仅用 DEPLOY_TARGET=gh-pages 走子路径构建。
+# 正式站：自定义域 https://gzrobotics.org（GitHub Pages + CNAME）
+# 构建用根路径（base=/），并写入 CNAME 文件；GitHub 会自动签发 Let's Encrypt 证书。
+# 注意：若未绑定自定义域、需要项目页子路径（/gzrobotics/）形态，
+# 则改用 `DEPLOY_TARGET=gh-pages npm run build` 且不要写 CNAME。
 on:
   push:
     branches: [main]
@@ -13,12 +15,12 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages-preview
+  group: pages-production
   cancel-in-progress: true
 
 jobs:
   build:
-    name: Build (base=/rosgz)
+    name: Build (custom domain, base=/)
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -33,10 +35,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build for GitHub Pages sub-path
-        env:
-          DEPLOY_TARGET: gh-pages
+      - name: Build
         run: npm run build
+
+      - name: Write CNAME (gzrobotics.org)
+        run: echo "gzrobotics.org" > dist/CNAME
 
       - name: Disable Jekyll processing
         run: touch dist/.nojekyll

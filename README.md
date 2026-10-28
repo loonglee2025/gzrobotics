@@ -1,4 +1,4 @@
-# ROSGZ — ROS 广州（ROS Guangzhou）社区官网
+# GZRobotics — ROS 广州（ROS Guangzhou）社区官网
 
 ROS Guangzhou 的官方网站：静态站点，零后端，内容全部 Git 化。
 
@@ -13,14 +13,14 @@ ROS Guangzhou 的官方网站：静态站点，零后端，内容全部 Git 化�
 
 | 用途 | 地址 | 说明 |
 |---|---|---|
-| 预览站（已上线） | https://loonglee2025.github.io/rosgz/ | GitHub Pages 项目页，子路径 `/rosgz`；`noindex`，仅作预览 |
-| 正式站（待域名注册） | https://gzrobotics.org | Cloudflare Pages，根路径；接入步骤见 `docs/DEPLOY.md` |
+| **正式站** | https://gzrobotics.org | GitHub Pages + 自定义域（CNAME），根路径；域名 2026-10-28 注册于 NameCheap |
+| 备用形态 | GitHub Pages 项目页（`/gzrobotics/` 子路径） | 仅在未绑定自定义域时使用，需 `DEPLOY_TARGET=gh-pages` 构建 |
 
 ## 两种构建模式
 
 ```bash
 npm run build                       # 正式站：base=/，canonical=gzrobotics.org
-DEPLOY_TARGET=gh-pages npm run build  # 预览站：base=/rosgz，canonical 仍指向 gzrobotics.org 且带 noindex
+DEPLOY_TARGET=gh-pages npm run build  # 预览站：base=/gzrobotics，canonical 仍指向 gzrobotics.org 且带 noindex
 ```
 
 内部链接一律通过 `src/lib/url.ts` 的 `url('/path')` 生成，**不要硬编码 `href="/path"`**——
@@ -52,7 +52,7 @@ DEPLOY_TARGET=gh-pages npm run build  # 预览站：base=/rosgz，canonical 仍�
 
 待办（未阻塞开发，阻塞「完整上线」）：
 
-- [x] 拍板项 2：仓库归属 → 已定 `loonglee2025/rosgz`（2026-10-28 创建并首推）；
+- [x] 拍板项 2：仓库归属 → 已定 `loonglee2025/gzrobotics`（2026-10-28 创建并首推）；
       若日后需迁到 GitHub Organization `rosgz`，用 GitHub 的 Transfer repository 保 issue/star
 - [x] 拍板项 4：中英双语已实现（中文 `/`，英文 `/en`；`src/data/site.en.json`；hreflang 与语言切换已接入）
 - [x] 「ROS 广州」既有描述出处 → 已定位：公众号 WayToRobots《ROS Guangzhou 社区介绍》
@@ -115,7 +115,7 @@ rosgz/
 ## 合规红线（改动内容时请自查）
 
 1. 不得出现「官方」「ROS 中国区」「Open Robotics 授权」等表述；页脚非隶属声明不可删除。
-2. 不得使用 ROS 官方 logo 或其变体；本站标识为字母标 `ROSGZ`。
+2. 不得使用 ROS 官方 logo 或其变体；本站标识为字母标 `GZRobotics`。
 3. 站点不引入统计/追踪脚本；不收集个人信息，报名一律跳转第三方表单。
 4. 赞助或场地支持必须在页面与现场明确披露，且不得影响选题与讲者选择。
 5. 活动截止日期、场地、报名链接必须以主办方最终发布为准，页面不写「预计」诱导报名。

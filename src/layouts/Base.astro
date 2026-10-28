@@ -15,8 +15,9 @@ const plain = withoutLocale(pathNoBase);
 const site = lang === 'zh' ? siteZh : siteEn;
 
 const desc = description || site.description;
+// 双品牌：主品牌 GZRobotics（与域名 gzrobotics.org 对齐），副标 ROS 广州 / ROS Guangzhou
 const brand =
-  lang === 'zh' ? `${site.nameZh}（${site.name}）` : `${site.name} · ${site.nameEn}`;
+  lang === 'zh' ? `${site.name} · ${site.nameZh}` : `${site.name} · ${site.nameEn}`;
 const pageTitle = title ? `${title} · ${brand}` : `${brand} — ${site.tagline}`;
 
 const withSlash = (p) => (p.endsWith('/') ? p : `${p}/`);
@@ -42,7 +43,7 @@ const canonical = abs(lang);
     <link rel="icon" type="image/svg+xml" href={url('/favicon.svg')} />
     <meta name="theme-color" content="#0a1220" />
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="ROSGZ" />
+    <meta property="og:site_name" content="GZRobotics" />
     <meta property="og:locale" content={lang === 'zh' ? 'zh_CN' : 'en_US'} />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={desc} />

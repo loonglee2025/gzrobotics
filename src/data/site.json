@@ -1,5 +1,5 @@
 {
-  "name": "ROSGZ",
+  "name": "GZRobotics",
   "nameZh": "ROS 广州",
   "nameEn": "ROS Guangzhou",
   "domain": "https://gzrobotics.org",
@@ -93,7 +93,7 @@
     },
     "github": {
       "label": "GitHub",
-      "url": "https://github.com/loonglee2025/rosgz",
+      "url": "https://github.com/loonglee2025/gzrobotics",
       "note": "站点源码仓库，接受内容勘误与改进 PR"
     },
     "email": {
