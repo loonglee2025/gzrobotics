@@ -93,6 +93,31 @@ SAN     = DNS:gzrobotics.org, DNS:www.gzrobotics.org
 - GitHub Pages 在中国大陆访问不稳定（时延/丢包随网络变化）。若社群反馈明显，再按第 6 节评估迁移 Cloudflare 或香港节点；
   代码侧无需改动：`DEPLOY_TARGET` 不设即根路径构建，Cloudflare Pages 直接复用同一产物。
 
+### 0.7 域名所有权验证（已完成，防域接管）
+
+**目的**：若 Pages 站点被删除/禁用而 DNS 仍指向 GitHub，未验证的域名可能被他人绑到自己的仓库（域接管）。验证一次永久生效。
+
+2026-10-28 已完成，步骤留档：
+
+1. <https://github.com/settings/pages> → **Add a domain** → 输入 `gzrobotics.org`，GitHub 生成 TXT 记录：
+
+   | Type | Name | Value |
+   |---|---|---|
+   | TXT | `_github-pages-challenge-loonglee2025.gzrobotics.org` | 32 位十六进制 token（一次性生成） |
+
+2. NameCheap → Advanced DNS → Add New Record：Type `TXT Record`，
+   **Host 只填 `_github-pages-challenge-loonglee2025`（NameCheap 的 Host 字段不带域名后缀）**，Value 填 token，TTL Automatic。
+3. 回 <https://github.com/settings/pages> 点 **Verify**（TXT 在权威 NS 与公共 DNS 生效后即可成功）。
+
+实测状态变化：`protected_domain_state: null → unverified → verified`；验证后站点 HTTPS 与证书不受影响。
+
+**坑与事实**：
+
+- **REST API 无法完成验证**：`PUT /repos/{owner}/{repo}/pages {cname}` 只设置域名；`GET /user/pages/domains` 返回 404。
+- GraphQL 的 `verifyVerifiableDomain` / `addVerifiableDomain` 等 5 个 mutation 属 **Organization 邮箱域名验证**，与 Pages 自定义域无关。
+- 验证后**不要删除这条 TXT 记录**——它是域名所有权凭据；换 GitHub 账号或换域名需重新生成。
+- 建议在把自定义域加入仓库**之前**先验证域名，可避免窗口期内的接管风险（本次是先绑域后验证）。
+
 ## 1. 注册域名（你操作）
 
 推荐组合：主域 `gzrobotics.org`（**已注册**，2026-10-28 / NameCheap）。
