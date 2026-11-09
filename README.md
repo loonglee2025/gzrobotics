@@ -97,8 +97,8 @@ rosgz/
 │  │  └─ events.json       # 活动数据（含字段 schema 注释）
 │  ├─ pages/               # 路由：/, /about, /events, /weekly, /resources, /join, /code-of-conduct, 404
 │  └─ styles/global.css
-├─ docs/DEPLOY.md          # 域名注册、DNS、Cloudflare Pages、验证与回滚
-└─ .github/workflows/ci.yml
+├─ docs/DEPLOY.md          # 域名注册、DNS、GitHub Pages 绑定、证书排障与回滚
+└─ .github/workflows/      # ci.yml（构建 + 合规检查）、deploy-pages.yml（部署正式站）
 ```
 
 ## 内容维护（非技术人员也能改）
