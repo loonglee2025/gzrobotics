@@ -1,5 +1,5 @@
 {
-  "syncedAt": "2026-11-09T21:54:03.797Z",
+  "syncedAt": "2026-11-09T22:01:35.946Z",
   "sources": [
     {
       "id": "ros2",
@@ -13,7 +13,7 @@
       "total": 23,
       "count": 12,
       "latest": "2026-11-08",
-      "written": 12,
+      "written": 0,
       "removed": 0
     },
     {
@@ -28,7 +28,7 @@
       "total": 16,
       "count": 12,
       "latest": "2026-09-18",
-      "written": 12,
+      "written": 0,
       "removed": 0
     }
   ],
