@@ -7,7 +7,7 @@ ROS Guangzhou 的官方网站：静态站点，零后端，内容全部 Git 化�
 - 内容来源：公众号 WayToRobots《ROS Guangzhou 社区介绍》（检索日期 2026-10-28，见 `src/data/site.json` 的 `source` 字段）
 - 技术栈：Astro（纯静态）、原生 CSS（无 UI 框架依赖）、数据用 JSON
 - 语言：**中英双语**——中文为默认（`/about`），英文在 `/en` 下（`/en/about`）；英文为中文原文的译本，两者冲突时以中文为准
-- 部署目标：Cloudflare Pages（Git 集成，PR 预览 + 一键回滚）
+- 部署：**GitHub Pages + 自定义域**（当前正式站，工作流 `.github/workflows/deploy-pages.yml`）；Cloudflare Pages 仅作为备选迁移路径保留（Git 集成、PR 预览 + 一键回滚），迁移时无需改代码，同一份构建产物可直接复用
 
 ## 访问地址
 
