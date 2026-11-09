@@ -1,0 +1,36 @@
+{
+  "syncedAt": "2026-11-09T21:54:03.797Z",
+  "sources": [
+    {
+      "id": "ros2",
+      "label": "ROS 2 技术周报",
+      "labelEn": "ROS 2 Weekly Digest",
+      "repo": "https://github.com/loonglee2025/ros2-weekly-digest",
+      "dir": "reports",
+      "branch": "main",
+      "cadence": "每周一更新",
+      "cadenceEn": "Updated every Monday",
+      "total": 23,
+      "count": 12,
+      "latest": "2026-11-08",
+      "written": 12,
+      "removed": 0
+    },
+    {
+      "id": "research",
+      "label": "机器人研究周报",
+      "labelEn": "Robot Research Weekly",
+      "repo": "https://github.com/loonglee2025/robot-research-weekly",
+      "dir": "weekly",
+      "branch": "main",
+      "cadence": "每周五更新",
+      "cadenceEn": "Updated every Friday",
+      "total": 16,
+      "count": 12,
+      "latest": "2026-09-18",
+      "written": 12,
+      "removed": 0
+    }
+  ],
+  "errors": []
+}

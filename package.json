@@ -8,7 +8,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "check": "astro check"
+    "check": "astro check",
+    "sync:weekly": "node scripts/sync-weekly.mjs"
   },
   "dependencies": {
     "astro": "^6.4.8"

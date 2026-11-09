@@ -104,16 +104,28 @@
   },
   "weeklyDigests": [
     {
+      "id": "ros2",
       "label": "ROS 2 技术周报",
+      "labelEn": "ROS 2 Weekly Digest",
       "repo": "https://github.com/loonglee2025/ros2-weekly-digest",
-      "reportsPath": "reports",
-      "cadence": "每周一更新"
+      "dir": "reports",
+      "branch": "main",
+      "filePattern": "^\\d{4}-\\d{2}-\\d{2}-weekly\\.md$",
+      "maxItems": 12,
+      "cadence": "每周一更新",
+      "cadenceEn": "Updated every Monday"
     },
     {
+      "id": "research",
       "label": "机器人研究周报",
+      "labelEn": "Robot Research Weekly",
       "repo": "https://github.com/loonglee2025/robot-research-weekly",
-      "reportsPath": "reports",
-      "cadence": "每周五更新"
+      "dir": "weekly",
+      "branch": "main",
+      "filePattern": "^\\d{4}-\\d{2}-\\d{2}-weekly\\.md$",
+      "maxItems": 12,
+      "cadence": "每周五更新",
+      "cadenceEn": "Updated every Friday"
     }
   ],
   "resources": [

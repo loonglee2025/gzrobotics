@@ -1,8 +1,13 @@
 ---
 import Base from '../../layouts/Base.astro';
 import site from '../../data/site.en.json';
+import index from '../../data/weekly-index.json';
+import { url } from '../../lib/url';
 
 const digests = site.weeklyDigests;
+const sourceMeta = (index.sources || []).filter((s) => s.id);
+const syncedAt = index.syncedAt ? index.syncedAt.slice(0, 10) : '';
+const totalIssues = sourceMeta.reduce((n, s) => n + (s.count || 0), 0);
 ---
 
 <Base
@@ -13,28 +18,35 @@ const digests = site.weeklyDigests;
     <h1>Weekly Digests</h1>
     <p>
       Two continuously updated public digests. Everything is archived as Markdown in GitHub repositories,
-      free to cite and to correct.
+      free to cite and to correct. Recent issues are also aggregated on this site.
     </p>
   </div>
 
   <div class="grid">
     {
-      digests.map((d) => (
-        <div class="card">
-          <h3>{d.label}</h3>
-          <p>{d.cadence}</p>
-          <span class="meta">
-            <a href={d.repo}>Read in the repository →</a>
-          </span>
-        </div>
-      ))
+      digests.map((d) => {
+        const meta = sourceMeta.find((s) => s.id === d.id);
+        return (
+          <div class="card">
+            <h3>{d.label}</h3>
+            <p>{d.cadence}</p>
+            <span class="meta">
+              {meta ? `Latest issue ${meta.latest} · ${meta.count} issues on site` : 'Synced from GitHub'}
+              <br />
+              <a href={d.repo}>Read in the repository →</a>
+            </span>
+          </div>
+        );
+      })
     }
   </div>
 
   <div class="notice">
-    <strong>Sync status:</strong> currently these link straight to the public repositories. In-site aggregation
-    (fetching <code>{digests[0].reportsPath}/*.md</code> at build time and rendering the latest issue and full
-    archive here) is planned for milestone M2.
+    <strong>Sync status:</strong> {totalIssues} issues are aggregated on this site
+    (last sync {syncedAt || 'not yet synced'}). The digest text is written in Chinese, so the
+    in-site reader is the Chinese page — open
+    <a href={url('/weekly')}> 技术周报</a> to read issues. Nothing is rewritten: the site mirrors the
+    Markdown in each repository.
   </div>
 
   <h2>Editorial rules</h2>

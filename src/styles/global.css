@@ -438,3 +438,114 @@ li {
     padding: 2rem 0 3rem;
   }
 }
+
+/* 周报正文（Astro content collection 渲染的 Markdown）——限制行宽以保证中文可读性 */
+.prose {
+  max-width: 46rem;
+  font-size: 1rem;
+  line-height: 1.85;
+}
+.prose > :first-child {
+  margin-top: 0;
+}
+.prose h2 {
+  margin: 2.4em 0 0.8em;
+  padding-bottom: 0.35em;
+  border-bottom: 1px solid var(--line);
+  font-size: 1.32rem;
+  line-height: 1.4;
+}
+.prose h3 {
+  margin: 1.9em 0 0.6em;
+  font-size: 1.12rem;
+  line-height: 1.5;
+  color: var(--accent);
+}
+.prose h4 {
+  margin: 1.5em 0 0.5em;
+  font-size: 1rem;
+  color: var(--text-dim);
+}
+.prose p {
+  margin: 0 0 1.05em;
+}
+.prose ul,
+.prose ol {
+  margin: 0 0 1.1em;
+  padding-left: 1.6em;
+}
+.prose li {
+  margin-bottom: 0.45em;
+}
+.prose li > p {
+  margin-bottom: 0.4em;
+}
+.prose strong {
+  color: #fff;
+}
+.prose a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.prose a:hover {
+  color: var(--accent-2);
+}
+.prose blockquote {
+  margin: 0 0 1.2em;
+  padding: 0.2em 0 0.2em 1em;
+  border-left: 3px solid var(--accent);
+  color: var(--text-dim);
+}
+.prose code {
+  padding: 0.12em 0.36em;
+  border-radius: 6px;
+  background: var(--bg-soft);
+  font-family: var(--mono);
+  font-size: 0.88em;
+}
+.prose pre {
+  margin: 0 0 1.2em;
+  padding: 1em;
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--bg-soft);
+}
+.prose pre code {
+  padding: 0;
+  background: none;
+}
+.prose table {
+  display: block;
+  width: 100%;
+  margin: 0 0 1.3em;
+  overflow-x: auto;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+.prose th,
+.prose td {
+  padding: 0.5em 0.7em;
+  border: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+.prose thead th {
+  background: var(--bg-card);
+  white-space: nowrap;
+}
+.prose hr {
+  margin: 2em 0;
+  border: 0;
+  border-top: 1px solid var(--line);
+}
+@media (max-width: 620px) {
+  .prose {
+    font-size: 0.96rem;
+    line-height: 1.8;
+  }
+  .prose h2 {
+    font-size: 1.18rem;
+  }
+}

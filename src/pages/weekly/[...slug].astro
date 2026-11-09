@@ -1,0 +1,44 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection, render } from 'astro:content';
+import { url } from '../../lib/url';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('weekly');
+  return entries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const { title, date, sourceLabel, sourceUrl, repo } = entry.data;
+---
+
+<Base title={title} description={entry.data.summary || `${sourceLabel} ${date}`}>
+  <div class="page-head">
+    <p class="muted">
+      <a href={url('/weekly')}>技术周报</a>
+      {' / '}
+      {sourceLabel}
+    </p>
+    <h1>{title}</h1>
+    <p class="muted">
+      {date}
+      {' · '}
+      <a href={sourceUrl}>在 GitHub 查看原文</a>
+      {' · '}
+      <a href={repo}>周报仓库</a>
+    </p>
+  </div>
+
+  <article class="prose">
+    <Content />
+  </article>
+
+  <div class="notice">
+    本文来自 <a href={repo}>{sourceLabel}</a> 的 Markdown 原文，站点仅做排版转换
+    （标题层级、参考链接列表化），未改写内容。发现错误请到仓库提 PR。
+  </div>
+</Base>

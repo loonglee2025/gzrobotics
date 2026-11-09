@@ -1,37 +1,75 @@
 ---
 import Base from '../layouts/Base.astro';
 import site from '../data/site.json';
+import index from '../data/weekly-index.json';
+import { getCollection } from 'astro:content';
+import { url } from '../lib/url';
 
-const digests = site.weeklyDigests;
+const entries = await getCollection('weekly');
+
+const groups = site.weeklyDigests.map((d) => {
+  const items = entries
+    .filter((e) => e.data.source === d.id)
+    .sort((a, b) => (a.data.date < b.data.date ? 1 : -1));
+  const meta = (index.sources || []).find((s) => s.id === d.id);
+  return { source: d, items, meta };
+});
+
+const syncedAt = index.syncedAt ? index.syncedAt.slice(0, 10) : '';
+const totalIssues = entries.length;
 ---
 
-<Base title="技术周报" description="ROS 2 技术周报与机器人研究周报，跟踪上游变更、发布节奏与前沿论文。">
+<Base title="技术周报" description="ROS 2 技术周报与机器人研究周报，跟踪上游变更、发布节奏与前沿论文；正文在站内直接可读。">
   <div class="page-head">
     <h1>技术周报</h1>
     <p>
       两份持续更新的公开周报，全部内容以 Markdown 形式归档在 GitHub 仓库中，可自由引用与纠错。
+      最新几期已聚合到本站，可直接阅读；每期底部都保留原始仓库链接。
     </p>
   </div>
 
-  <div class="grid">
-    {
-      digests.map((d) => (
-        <div class="card">
-          <h3>{d.label}</h3>
-          <p>{d.cadence}</p>
-          <span class="meta">
-            <a href={d.repo}>前往仓库阅读 →</a>
-          </span>
-        </div>
-      ))
-    }
+  <div class="notice">
+    <strong>同步状态：</strong>站内已收录 {totalIssues} 期{totalIssues > 0 ? '' : '（等待首次同步）'}，
+    最近同步于 {syncedAt || '尚未同步'}（UTC）。内容来自各周报仓库的 Markdown 原文，站点不做改写；
+    若与仓库不一致，以仓库为准。
   </div>
 
-  <div class="notice">
-    <strong>同步状态：</strong>当前版本为直接跳转公开仓库阅读。站点端的自动聚合
-    （构建时拉取仓库内的 <code>{digests[0].reportsPath}/*.md</code> 并渲染成本站页面）已列入 M2 里程碑，
-    上线后会在此页直接呈现最新一期与历史归档。
-  </div>
+  {
+    groups.map(({ source, items, meta }) => (
+      <section>
+        <h2>{source.label}</h2>
+        <p class="muted">
+          {source.cadence}
+          {meta ? ` · 源仓库共 ${meta.total} 期，本站收录最近 ${meta.count} 期` : ''}
+          {meta && meta.latest ? ` · 最新一期 ${meta.latest}` : ''}
+          {' · '}
+          <a href={source.repo}>仓库</a>
+        </p>
+        {items.length === 0 ? (
+          <div class="notice">
+            这一源暂时没有聚合到内容。原因可能是尚未同步，或源仓库近期没有新期次；
+            可先到 <a href={source.repo}>仓库</a> 阅读。
+          </div>
+        ) : (
+          <div class="grid">
+            {items.map((entry) => (
+              <div class="card">
+                <h3>
+                  <a href={url(`/weekly/${entry.id}`)}>{entry.data.title}</a>
+                </h3>
+                <p>{entry.data.summary}</p>
+                <span class="meta">
+                  {entry.data.date}
+                  {' · '}
+                  <a href={url(`/weekly/${entry.id}`)}>阅读 →</a>
+                </span>
+              </div>
+            ))}
+          </div>
+        )}
+      </section>
+    ))
+  }
 
   <h2>内容口径</h2>
   <ul class="plain-list">
@@ -45,7 +83,7 @@ const digests = site.weeklyDigests;
     </li>
     <li>
       <div class="title">发现错误请提 PR</div>
-      <div class="desc">仓库接受任何纠错与补充，附来源即可。</div>
+      <div class="desc">仓库接受任何纠错与补充，附来源即可。站内内容是仓库的镜像，纠错请在仓库进行。</div>
     </li>
   </ul>
 </Base>

@@ -1,0 +1,68 @@
+name: Sync weekly digests
+
+# M2 周报聚合：定时从周报源仓库拉取最近 N 期 Markdown，写入 content collection
+# 并提交回本仓库，然后手动触发一次 Pages 部署。
+#
+# 为什么不用 GITHUB_TOKEN 推送后"自动"触发部署：GitHub 明确规定，用 GITHUB_TOKEN
+# 推送产生的 commit **不会**再触发 workflow（防止递归），所以这里显式
+# `gh workflow run deploy-pages.yml` 补一刀。
+#
+# 时间：UTC 22:00 = 北京时间次日 06:00。周一同步 ROS 2 技术周报（周一发布），
+# 周五同步机器人研究周报（周五发布），留出上游发布与推送的时间。
+
+on:
+  schedule:
+    - cron: '0 22 * * 1'
+    - cron: '0 22 * * 5'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: sync-weekly
+  cancel-in-progress: true
+
+jobs:
+  sync:
+    name: Fetch and commit weekly digests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Sync weekly digests
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node scripts/sync-weekly.mjs --strict
+
+      - name: Commit if changed
+        id: commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/content/weekly src/data/weekly-index.json
+          if git diff --cached --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "周报内容无变化，跳过提交。"
+            exit 0
+          fi
+          git commit -m "chore(weekly): 同步周报内容 $(date -u +%Y-%m-%d)"
+          git push
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Trigger Pages deploy
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh workflow run deploy-pages.yml --ref main

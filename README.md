@@ -59,7 +59,9 @@ DEPLOY_TARGET=gh-pages npm run build  # 预览站：base=/gzrobotics，canonical
       （检索 2026-10-28，原文归档于 `docs/source/`），站点文案已按其口径重构
 - [ ] 真实活动数据（`src/data/events.json` 现为空数组，页面显示占位说明，**不含任何虚构活动**）
 - [ ] 微信群二维码 / 域名邮箱（`site.json` 中标注 TO-DO）
-- [ ] M2：周报自动聚合（构建时拉取 `ros2-weekly-digest` / `robot-research-weekly` 的 `reports/*.md`）
+- [x] M2：周报自动聚合（2026-11-10 上线）——`scripts/sync-weekly.mjs` 定时抓取每个源最近 12 期，
+      写入 `src/content/weekly/`；构建只读本地内容（离线可构建），失败降级不阻塞部署；
+      设计与运维见 `docs/WEEKLY-AGGREGATION.md`
 
 ## 本地开发
 
@@ -74,6 +76,7 @@ npm install            # 首次安装（生成 package-lock.json，请一并提�
 npm run dev            # http://localhost:4321
 npm run build          # 产物输出到 dist/
 npm run preview        # 预览构建产物
+npm run sync:weekly    # 拉取最新周报内容（需 GITHUB_TOKEN；见 docs/WEEKLY-AGGREGATION.md）
 ```
 
 依赖策略：`package.json` 锁主版本范围 `^6.x`，实际版本由 `package-lock.json` 固定；
@@ -89,16 +92,21 @@ CI 使用 `npm ci`，保证与 lock 一致。
 rosgz/
 ├─ astro.config.mjs        # site: https://gzrobotics.org
 ├─ public/                 # favicon.svg、robots.txt、公众号二维码
+├─ scripts/sync-weekly.mjs # 周报聚合抓取脚本（M2）
 ├─ src/
 │  ├─ components/          # Header / Footer
 │  ├─ layouts/Base.astro   # HTML 骨架、SEO/OG、canonical
+│  ├─ content.config.ts    # 内容集合定义（weekly）
+│  ├─ content/weekly/      # 周报正文（脚本生成，勿手改）
 │  ├─ data/
 │  │  ├─ site.json         # 品牌、定位、渠道链接、周报源、资源清单
+│  │  ├─ weekly-index.json # 周报同步索引（脚本生成）
 │  │  └─ events.json       # 活动数据（含字段 schema 注释）
-│  ├─ pages/               # 路由：/, /about, /events, /weekly, /resources, /join, /code-of-conduct, 404
+│  ├─ pages/               # 路由：/, /about, /events, /weekly[/<source>/<date>], /resources, /join, /code-of-conduct, 404
 │  └─ styles/global.css
 ├─ docs/DEPLOY.md          # 域名注册、DNS、GitHub Pages 绑定、证书排障与回滚
-└─ .github/workflows/      # ci.yml（构建 + 合规检查）、deploy-pages.yml（部署正式站）
+├─ docs/WEEKLY-AGGREGATION.md  # 周报聚合设计与运维
+└─ .github/workflows/      # ci.yml（构建 + 合规检查）、deploy-pages.yml（部署）、sync-weekly.yml（周报同步）
 ```
 
 ## 内容维护（非技术人员也能改）

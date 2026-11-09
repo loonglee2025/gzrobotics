@@ -110,15 +110,19 @@
   },
   "weeklyDigests": [
     {
+      "id": "ros2",
       "label": "ROS 2 Weekly Digest",
       "repo": "https://github.com/loonglee2025/ros2-weekly-digest",
-      "reportsPath": "reports",
+      "dir": "reports",
+      "branch": "main",
       "cadence": "Updated every Monday"
     },
     {
+      "id": "research",
       "label": "Robotics Research Weekly",
       "repo": "https://github.com/loonglee2025/robot-research-weekly",
-      "reportsPath": "reports",
+      "dir": "weekly",
+      "branch": "main",
       "cadence": "Updated every Friday"
     }
   ],
