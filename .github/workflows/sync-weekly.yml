@@ -51,12 +51,16 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add src/content/weekly src/data/weekly-index.json
+          # 只以周报内容是否变化作为提交依据：weekly-index.json 里的 syncedAt 时间戳
+          # 每次运行都会变，若一并纳入判断会导致"每次同步都产生一次空提交 + 重新部署"。
+          git add src/content/weekly
           if git diff --cached --quiet; then
+            git checkout -- src/data/weekly-index.json 2>/dev/null || true
             echo "changed=false" >> "$GITHUB_OUTPUT"
-            echo "周报内容无变化，跳过提交。"
+            echo "周报内容无变化，跳过提交与部署。"
             exit 0
           fi
+          git add src/data/weekly-index.json
           git commit -m "chore(weekly): 同步周报内容 $(date -u +%Y-%m-%d)"
           git push
           echo "changed=true" >> "$GITHUB_OUTPUT"

@@ -8,6 +8,8 @@ const digests = site.weeklyDigests;
 const sourceMeta = (index.sources || []).filter((s) => s.id);
 const syncedAt = index.syncedAt ? index.syncedAt.slice(0, 10) : '';
 const totalIssues = sourceMeta.reduce((n, s) => n + (s.count || 0), 0);
+const latestDates = sourceMeta.map((s) => s.latest).filter(Boolean).sort();
+const latestOverall = latestDates[latestDates.length - 1] || '';
 ---
 
 <Base
@@ -42,9 +44,9 @@ const totalIssues = sourceMeta.reduce((n, s) => n + (s.count || 0), 0);
   </div>
 
   <div class="notice">
-    <strong>Sync status:</strong> {totalIssues} issues are aggregated on this site
-    (last sync {syncedAt || 'not yet synced'}). The digest text is written in Chinese, so the
-    in-site reader is the Chinese page — open
+    <strong>Sync status:</strong> {totalIssues} issues are aggregated on this site,
+    content updated through {latestOverall || syncedAt || 'not yet synced'}. The digest text is
+    written in Chinese, so the in-site reader is the Chinese page — open
     <a href={url('/weekly')}> 技术周报</a> to read issues. Nothing is rewritten: the site mirrors the
     Markdown in each repository.
   </div>

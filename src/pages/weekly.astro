@@ -17,6 +17,11 @@ const groups = site.weeklyDigests.map((d) => {
 
 const syncedAt = index.syncedAt ? index.syncedAt.slice(0, 10) : '';
 const totalIssues = entries.length;
+const latestDates = groups.map((g) => g.meta?.latest).filter(Boolean).sort();
+const latestOverall = latestDates[latestDates.length - 1] || '';
+const latestText = groups
+  .map((g) => `${g.source.label} ${g.meta?.latest || '—'}`)
+  .join('、');
 ---
 
 <Base title="技术周报" description="ROS 2 技术周报与机器人研究周报，跟踪上游变更、发布节奏与前沿论文；正文在站内直接可读。">
@@ -29,9 +34,10 @@ const totalIssues = entries.length;
   </div>
 
   <div class="notice">
-    <strong>同步状态：</strong>站内已收录 {totalIssues} 期{totalIssues > 0 ? '' : '（等待首次同步）'}，
-    最近同步于 {syncedAt || '尚未同步'}（UTC）。内容来自各周报仓库的 Markdown 原文，站点不做改写；
-    若与仓库不一致，以仓库为准。
+    <strong>同步状态：</strong>站内已收录 {totalIssues} 期{totalIssues > 0 ? '' : '（等待首次同步）'}；
+    最新一期：{latestText}{latestOverall ? `，内容更新至 ${latestOverall}` : ''}。
+    内容来自各周报仓库的 Markdown 原文，站点不做改写；若与仓库不一致，以仓库为准。
+    （每次同步时间为 {syncedAt || '尚未同步'} UTC，仅供排查。）
   </div>
 
   {

@@ -140,9 +140,16 @@ frontmatter 字段：`title` `date` `source` `sourceLabel` `sourceLabelEn` `repo
   → `gh workflow run deploy-pages.yml`；
 - 权限：`contents: write`、`actions: write`。
 
-> **为什么手动触发部署**：GitHub 规定用 `GITHUB_TOKEN` 推送产生的 commit **不会**再触发
-> 其它 workflow（防递归）。所以推送成功后必须显式 `gh workflow run deploy-pages.yml`，
-> 否则站点会停在旧内容上——这是这类"定时抓取 + 提交"最容易漏的一步。
+> **两个必须踩过的坑（都已修）**：
+> 1. **推送不触发部署**：GitHub 规定用 `GITHUB_TOKEN` 推送产生的 commit **不会**再触发其它
+>    workflow（防递归）。所以推送成功后必须显式 `gh workflow run deploy-pages.yml`，
+>    否则站点会停在旧内容上。
+> 2. **时间戳抖动导致空提交**：`weekly-index.json` 里的 `syncedAt` 每次运行都变，若把它纳入
+>    "是否有变化"的判断，每周都会产生一次只改时间戳的提交并连带重新部署。
+>    现在提交判据只看 `src/content/weekly`；无变化时 `git checkout -- src/data/weekly-index.json`
+>    丢弃时间戳变更，直接跳过提交与部署。
+>    相应地，页面展示的是"最新一期/内容更新至 {日期}"（来自 `latest` 字段），
+>    `syncedAt` 仅作排查信息，不再作为对外的"最近同步时间"。
 
 ## 8. 运维手册
 
